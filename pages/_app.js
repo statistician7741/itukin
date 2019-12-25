@@ -80,7 +80,7 @@ class MyApp extends App {
 
   componentDidMount = () => {
     if (!this.props.store.getState().socket.socket) {
-      const socket = io.connect(`https://${window.location.hostname}`, { secure: true });
+      const socket = io.connect(`http://${window.location.hostname}:81`, { secure: false });
       this.props.store.dispatch(setSocket(socket))
       // this.props.store.dispatch(setActiveUser(socket))
       socket.on('disconnect', this.handleOnDisconnect)

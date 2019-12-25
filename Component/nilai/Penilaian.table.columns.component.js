@@ -11,7 +11,7 @@ export default (data, onAfterChange)=>[
         title: 'Realisasi',
         dataIndex: 'target',
         key: 'target',
-        render: target => <Progress percent={Math.ceil(target.realisasi / target.jumlah * 100)}
+        render: (target, row) => <Progress percent={Math.ceil(( row.progress? row.progress.reduce((a,b)=> a.jumlah+b.jumlah, 0):0 ) / target.jumlah * 100)}
             strokeColor={`hsl(${((target.realisasi / target.jumlah) * 120).toString(10)},100%,50%)`}
             size="small" />,
     },

@@ -152,9 +152,12 @@ var SPDSchema = new Schema({
     "progress": [{
         time: Date,
         timestamp: Date,
-        jumlah: Number,
+        jumlah: {
+            type: Number,
+            default: 0
+        },
         catatan: {
-            type: [],
+            jenis: [],
             text: String
         },
         bukti_foto: []

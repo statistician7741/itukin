@@ -21,7 +21,7 @@ let runServer = () => {
   var certificate = fs.readFileSync(__dirname + '/cert/www.bpskolaka.com-crt.pem', 'utf8');
   var credentials = { key: privateKey, cert: certificate };
 
-  const port = process.env.PORT || 80
+  const port = 81
   const dev = process.env.NODE_ENV !== 'production'
   const app = next({ dev })
   const handle = app.getRequestHandler()
@@ -65,7 +65,7 @@ let runServer = () => {
       var httpsServer = https.createServer(credentials, server);
       httpsServer.listen(443);
 
-      const io = socketServer(httpsServer);
+      const io = socketServer(serve);
       const all_connected_clients = require('./SocketConnections')
       io.use(sharedsession(session, cookieParser("ID==&&%^&A&SHBJSAsjhbJGhUGkbKiUvii^%^#$%^&98G8UIugg==")));
       io.on('connection', function (client) {
