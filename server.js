@@ -4,7 +4,7 @@ process.on('uncaughtException', function (err) {
   // handle the error safely
   console.log(400, ' Start Error Message: ', err)
   // send email
-  
+
 });
 
 //SIPEDE Server
@@ -75,7 +75,7 @@ let runServer = () => {
         //     all_connected_clients[client.handshake.cookies.organik_id] = {}
         //   }
         //   all_connected_clients[client.handshake.cookies.organik_id][client.handshake.cookies.io] = client
-        //   require('./api/socket/kec.socket.api')(client, all_connected_clients)
+        require('./api/socket/penilaian.api.socket')(client, all_connected_clients)
         //   require('./api/socket/maksud.socket.api')(client, all_connected_clients)
         //   require('./api/socket/organik.socket.api')(client, all_connected_clients)
         // require('./api/socket/spd.socket.api')(client, all_connected_clients)
@@ -98,13 +98,13 @@ var mongoose = require('mongoose');
 const { exec } = require('child_process');
 
 let start = () => {
-  mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+  mongoose.connect(url, { useNewUrlParser: true }, (err) => {
     if (err) {
       exec(`powershell -Command "Start-Process cmd -Verb RunAs -ArgumentList '/c net start MongoDB'"`, (err, stdout, stderr) => {
         console.log('Trying to start MongoDB service...');
         setTimeout(start, 15000)
       })
-    } else{
+    } else {
       runServer();
     }
   });

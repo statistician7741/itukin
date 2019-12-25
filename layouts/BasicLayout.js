@@ -33,20 +33,16 @@ class BasicLayout extends React.Component {
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Layout>
-          <Header style={{ background: "#fff", padding: 0 }}>
-            <Icon
-              className="trigger"
-              type={this.props.sideMenuCollapsed ? "menu-unfold" : "menu-fold"}
-              onClick={this.toggle}
-            />
-            <span>{active_user.tahun_anggaran?<span><Tag color="#1DA57A">T.A. {active_user.tahun_anggaran}</Tag> <Tag color="#1DA57A">{active_user.seksi}</Tag></span>:<Icon type='loading'/>}</span>
+          <Header style={{ background: "#fff", padding: 0, textAlign: "center" }}>
+            <span style={{float: "left", paddingLeft: 25}}><Link href="/"><a><img className="logo" src={`/static/logo1.png`} /></a></Link></span>
+            <span>{active_user.tahun_anggaran||true?<span><Tag color="#1DA57A">T.A. {active_user.tahun_anggaran||2020}</Tag> <Tag color="#1DA57A">{active_user.seksi||"Distribusi"}</Tag></span>:<Icon type='loading'/>}</span>
             <span className="right">
               <Dropdown overlay={menu}>
                 <span className={`action account`}>
                   <Avatar
                     className={'avatar'}
-                  >{active_user.nama?active_user.nama[0]:<Icon type='loading'/>}</Avatar>
-                  {isMobile === undefined || isMobile === false?<span className={'name'}>{active_user.nama?active_user.nama:<Icon type='loading'/>}</span>:null}
+                  >{active_user.nama||true?"Y":<Icon type='loading'/>}</Avatar>
+                  {isMobile === undefined || isMobile === false?<span className={'name'}>{active_user.nama||true?"Yunita Nur Khasanah":<Icon type='loading'/>}</span>:null}
                 </span>
               </Dropdown>
             </span>

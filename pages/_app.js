@@ -105,6 +105,8 @@ class MyApp extends App {
             <title>{`iTukin - BPS ${kab}`}</title>
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />
+            {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuRzGuN2nbkusHMzwx63xU4FqPBFPDhk8&callback=initMap"
+              async defer></script> */}
           </Head>
           <Component
             {...pageProps}
