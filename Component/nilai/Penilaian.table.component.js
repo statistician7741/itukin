@@ -1,29 +1,17 @@
 import { Table, Progress, Timeline, Slider } from 'antd'
 import dynamic from 'next/dynamic';
 const PenilaianItem = dynamic(() => import("./Penilaian.timeline.component"));
+const moment = require("moment");
+moment.locale("id")
 
 const detailKegiatan = (record, index, indent, expanded) => {
     return <Timeline>
-        <PenilaianItem
-            key="1"
-            tgl="24 Desember 2019"
-            keterangan="Mencacah Kamboja Unggas dari pukul 07.34 - 09.21. Harga ayam ras dan dagingnya naik rp.5000."
-            photoUrl={["/static/bukti_foto/1.jpeg", "/static/bukti_foto/2.jpeg", "/static/bukti_foto/3.jpeg"]} />
-        <PenilaianItem
-            key="2"
-            tgl="23 Desember 2019"
-            keterangan="Mencacah Kamboja Unggas dari pukul 07.34 - 09.21. Harga ayam ras dan dagingnya naik rp.5000."
-            photoUrl={["/static/bukti_foto/3.jpeg", "/static/bukti_foto/4.jpeg"]} />
-        <PenilaianItem
-            key="3"
-            tgl="22 Desember 2019"
-            keterangan="Mencacah Kamboja Unggas dari pukul 07.34 - 09.21. Harga ayam ras dan dagingnya naik rp.5000."
-            photoUrl={["/static/bukti_foto/5.jpeg", "/static/bukti_foto/6.jpeg"]} />
-        <PenilaianItem
-            key="4"
-            tgl="21 Desember 2019"
-            keterangan="Mencacah Kamboja Unggas dari pukul 07.34 - 09.21. Harga ayam ras dan dagingnya naik rp.5000."
-            photoUrl={["/static/bukti_foto/7.jpeg", "/static/bukti_foto/8.jpeg"]} />
+        {record.progress ? (record.progress.length ? (record.progress.map(p => <PenilaianItem
+            key={p._id}
+            tgl={`${moment(p.time).format("dddd")}, ${moment(p.time).format("DD/MM/YYYY HH:mm")}`}
+            keterangan={p.catatan.text}
+            photoUrl={p.bukti_foto.map(f => ('http://localhost/static/bukti_foto/' + f))}
+        />)) : <span>Belum ada progress!</span>) : <span>Belum ada progress!</span>}
     </Timeline>
 }
 
@@ -33,5 +21,6 @@ export default ({ data, columns }) => {
         size="small"
         expandedRowRender={detailKegiatan}
         bordered
+        pagination = {false}
     />
 }

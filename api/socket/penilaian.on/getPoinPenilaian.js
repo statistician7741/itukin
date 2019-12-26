@@ -2,11 +2,10 @@ const moment = require('moment');
 const SPD = require('../../../models/spd.model');
 
 module.exports = (query, cb) => {
-    console.log(query);
-    const awal_bulan = moment().startOf('month')
-    const akhir_bulan = moment().endOf('month')
+    const awal_bulan = moment().month(query.month).startOf('month')
+    const akhir_bulan = moment().month(query.month).endOf('month')
     SPD.find({
-        "reserved.seksi": "Distribusi", $or: [
+        "reserved.seksi": query.seksi, "jenis_spd": "biasa", $or: [
             { $and: [{ 'waktu.berangkat': { $gte: awal_bulan } }, { 'waktu.berangkat': { $lte: akhir_bulan } }] },
             { $and: [{ 'waktu.kembali': { $gte: awal_bulan } }, { 'waktu.kembali': { $lte: akhir_bulan } }] },
             { $and: [{ 'waktu.berangkat': { $lte: awal_bulan } }, { 'waktu.kembali': { $gte: akhir_bulan } }] },
@@ -22,6 +21,6 @@ module.exports = (query, cb) => {
                 kegiatan[spd.maksud].push(spd)
             })
         }
-        cb(kegiatan);
+        cb({kegiatan, length: r.length});
     })
 }
