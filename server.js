@@ -63,7 +63,7 @@ let runServer = () => {
       })
       //https
       var httpsServer = https.createServer(credentials, server);
-      httpsServer.listen(443);
+      // httpsServer.listen(443);
 
       const io = socketServer(serve);
       const all_connected_clients = require('./SocketConnections')
