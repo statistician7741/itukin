@@ -21,53 +21,6 @@ export default class AddEditKec extends React.Component {
         month: moment().month(),
         seksi: 'Distribusi',
         semua_kegiatan: [],
-        data: [
-            {
-                key: '1',
-                nama: 'Sanur Saprah, SE',
-                target: {
-                    jumlah: 4,
-                    satuan: 'Hotel',
-                    realisasi: 2
-                },
-                kinerja: {
-                    realisasi: 87,
-                    ketepatan: 89,
-                    kesungguhan: 87,
-                    administrasi: 100,
-                }
-            },
-            {
-                key: '2',
-                nama: 'Sapari',
-                target: {
-                    jumlah: 7,
-                    satuan: 'Hotel',
-                    realisasi: 1
-                },
-                kinerja: {
-                    realisasi: 83,
-                    ketepatan: 80,
-                    kualitas: 88,
-                    administrasi: 100,
-                }
-            },
-            {
-                key: '3',
-                nama: 'Idhar Rahim',
-                target: {
-                    jumlah: 6,
-                    satuan: 'Hotel',
-                    realisasi: 5
-                },
-                kinerja: {
-                    realisasi: 85,
-                    kualitas: 80,
-                    kesungguhan: 84,
-                    administrasi: 92,
-                }
-            },
-        ]
     }
 
     onAfterChange = (value, data, currentRow) => {
@@ -82,28 +35,55 @@ export default class AddEditKec extends React.Component {
 
     getKegiatan = (month, seksi) => {
         this.props.socket.emit('api.socket.penilaian/s/getPoinPenilaian', { month, seksi }, (response) => {
-            const semua_kegiatan = [];
+            if (response.type === 200) {
+                const semua_kegiatan = [];
+                console.log(response);
+                if (response.data.length) {
+                    for (let keg in response.data.kegiatan) {
+                        if (response.data.kegiatan.hasOwnProperty(keg)) {
+                            semua_kegiatan.push({
+                                title: keg,
+                                data: response.data.kegiatan[keg].map(spd => ({
+                                    key: spd._id,
+                                    nama: spd.yang_bepergian.nama,
+                                    target: spd.target,
+                                    realisasi: spd.realisasi,
+                                    kinerja: spd.kinerja,
+                                    progress: spd.progress
+                                }))
+                            })
+                        }
+                    }
+                    this.setState({ semua_kegiatan, activeKey: semua_kegiatan[0].title })
+                } else {
+                    this.setState({ semua_kegiatan: [] })
+                }
+            } else {
+
+            }
+        })
+    }
+
+    onClickKirimPenilaian = (_id) => {
+        this.props.socket.emit('api.socket.penilaian/s/onClickKirimPenilaian', { _id }, (response) => {
             console.log(response);
-            if (response.length) {
-                for (let keg in response.kegiatan) {
-                    if (response.kegiatan.hasOwnProperty(keg)) {
-                        semua_kegiatan.push({
-                            title: keg,
-                            data: response.kegiatan[keg].map(spd => ({
-                                key: spd.nomor,
-                                nama: spd.yang_bepergian.nama,
-                                target: spd.target,
-                                realisasi: spd.realisasi,
-                                kinerja: spd.kinerja,
-                                progress: spd.progress
-                            }))
+        })
+    }
+
+    onClickEditPenilaian = (_id) => {
+        this.setState({
+            semua_kegiatan: [
+                ...this.state.semua_kegiatan.map(keg => {
+                    return {
+                        title: keg.title,
+                        data: keg.data.map(k => {
+                            if (k._id === _id) {
+                                return { ...k, kinerja_committed: false }
+                            } else return k;
                         })
                     }
-                }
-                this.setState({ semua_kegiatan, activeKey: semua_kegiatan[0].title })
-            } else{
-                this.setState({ semua_kegiatan: [] })
-            }
+                })
+            ]
         })
     }
 
@@ -115,7 +95,7 @@ export default class AddEditKec extends React.Component {
     }
 
     render() {
-        const { activeKey, data, month, semua_kegiatan, seksi } = this.state;
+        const { activeKey, month, semua_kegiatan, seksi } = this.state;
 
         return (
             <React.Fragment>
@@ -177,9 +157,9 @@ export default class AddEditKec extends React.Component {
                             onChange={(activeKey) => this.setState({ activeKey })}
                             expandIconPosition={"left"}
                         >
-                            {semua_kegiatan.length?semua_kegiatan.map(keg => <Panel header={genTitle(keg.title, 100, keg.title, activeKey)} key={keg.title}>
-                                <TablePenilaian data={keg.data} columns={columns(data, this.onAfterChange)} />
-                            </Panel>):<strong>Tidak ada kegiatan Bulan ini.</strong>}
+                            {semua_kegiatan.length ? semua_kegiatan.map(keg => <Panel header={genTitle(keg.title, 100, keg.title, activeKey)} key={keg.title}>
+                                <TablePenilaian data={keg.data} columns={columns(keg.data, this.onAfterChange, this.onClickEditPenilaian, this.onClickKirimPenilaian)} />
+                            </Panel>) : <strong>Tidak ada kegiatan Bulan ini.</strong>}
                         </Collapse>
                     </Col>
                 </Row>

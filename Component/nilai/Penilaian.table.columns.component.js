@@ -1,6 +1,6 @@
-import { Progress, Slider } from 'antd';
+import { Progress, Slider, Button } from 'antd';
 
-export default (data, onAfterChange)=>[
+export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian) => [
     {
         title: 'Petugas',
         dataIndex: 'nama',
@@ -11,8 +11,8 @@ export default (data, onAfterChange)=>[
         title: 'Realisasi',
         dataIndex: 'target',
         key: 'target',
-        render: (target, row) => <Progress percent={Math.ceil(( row.progress? (row.progress.length?(row.progress.slice(-1)[0].jumlah):0):0 ) / target.jumlah * 100)}
-            strokeColor={`hsl(${(( (row.progress? (row.progress.length?(row.progress.slice(-1)[0].jumlah):0):0) / target.jumlah) * 120).toString(10)},100%,50%)`}
+        render: (target, row) => <Progress percent={Math.ceil((row.progress ? (row.progress.length ? (row.progress.slice(-1)[0].jumlah) : 0) : 0) / target.jumlah * 100)}
+            strokeColor={`hsl(${(((row.progress ? (row.progress.length ? (row.progress.slice(-1)[0].jumlah) : 0) : 0) / target.jumlah) * 120).toString(10)},100%,50%)`}
             size="small" />,
     },
     {
@@ -23,7 +23,9 @@ export default (data, onAfterChange)=>[
                 width: 168,
                 dataIndex: 'kinerja',
                 key: 'kinerja.realisasi',
-                render: (kinerja, currentRow) => <Slider defaultValue={kinerja.realisasi || 100}
+                render: (kinerja, currentRow) => <Slider
+                    disabled={currentRow.kinerja_committed}
+                    defaultValue={kinerja.realisasi || 100}
                     min={80} max={100}
                     onAfterChange={(value) => onAfterChange(value, data, currentRow)} />,
             },
@@ -33,7 +35,9 @@ export default (data, onAfterChange)=>[
                 dataIndex: 'kinerja',
                 key: 'kinerja.ketepatan',
                 render: (kinerja, currentRow) =>
-                    <Slider defaultValue={kinerja.ketepatan || 100}
+                    <Slider
+                        disabled={currentRow.kinerja_committed}
+                        defaultValue={kinerja.ketepatan || 100}
                         min={80} max={100}
                         onAfterChange={(value) => onAfterChange(value, data, currentRow)} />,
             },
@@ -42,7 +46,9 @@ export default (data, onAfterChange)=>[
                 width: 168,
                 dataIndex: 'kinerja',
                 key: 'kinerja.kualitas',
-                render: (kinerja, currentRow) => <Slider defaultValue={kinerja.kualitas || 100}
+                render: (kinerja, currentRow) => <Slider
+                    disabled={currentRow.kinerja_committed}
+                    defaultValue={kinerja.kualitas || 100}
                     min={80} max={100}
                     onAfterChange={(value) => onAfterChange(value, data, currentRow)} />,
             },
@@ -52,6 +58,7 @@ export default (data, onAfterChange)=>[
                 dataIndex: 'kinerja',
                 key: 'kinerja.kesungguhan',
                 render: (kinerja, currentRow) => <Slider
+                    disabled={currentRow.kinerja_committed}
                     defaultValue={kinerja.kesungguhan || 100}
                     min={80} max={100}
                     onAfterChange={(value) => onAfterChange(value, data, currentRow)} />,
@@ -62,9 +69,30 @@ export default (data, onAfterChange)=>[
                 dataIndex: 'kinerja',
                 key: 'kinerja.administrasi',
                 render: (kinerja, currentRow) => <Slider
+                    disabled={currentRow.kinerja_committed}
                     defaultValue={kinerja.administrasi || 100}
                     min={80} max={100}
                     onAfterChange={(value) => onAfterChange(value, data, currentRow)} />,
+            },
+            {
+                title: 'Pilihan',
+                width: 20,
+                dataIndex: 'kinerja_committed',
+                key: 'kinerja_committed',
+                render: (kinerja_committed, row) => {
+                    return (kinerja_committed ? <Button
+                        title="Ubah penilaian"
+                        type="default"
+                        shape="circle"
+                        icon="edit"
+                        onClick={() => onClickEditPenilaian(row._id)} />
+                        : <Button
+                            title="Kirim penilaian"
+                            type="primary"
+                            shape="circle"
+                            icon="check"
+                            onClick={() => onClickKirimPenilaian(row._id)} />)
+                }
             },
         ]
     }
