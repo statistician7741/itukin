@@ -10,7 +10,7 @@ const detailKegiatan = (record, index, indent, expanded) => {
             key={p._id}
             tgl={`${moment(p.time).format("dddd")}, ${moment(p.time).format("DD/MM/YYYY HH:mm")}`}
             keterangan={p.catatan.text}
-            photoUrl={p.bukti_foto.map(f => ('http://localhost/static/bukti_foto/' + f))}
+            photoUrl={p.bukti_foto.map(f => (`http://${window.location.hostname}/static/bukti_foto/${f}`))}
         />)) : <span>Belum ada progress!</span>) : <span>Belum ada progress!</span>}
     </Timeline>
 }
