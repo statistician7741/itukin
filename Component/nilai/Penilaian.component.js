@@ -12,7 +12,7 @@ const genTitle = (title, progr, key, stateKey) => (
     <span>{key === stateKey ? <strong>{title}</strong> : title} <span style={{ float: "Right", width: 100 }}><Progress percent={progr} size="small" /></span></span>
 );
 
-export default class AddEditKec extends React.Component {
+export default class Penilaian extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -23,11 +23,11 @@ export default class AddEditKec extends React.Component {
         semua_kegiatan: [],
     }
 
-    onAfterChange = (value, data, currentRow) => {
+    onAfterChange = (index, value, data, currentRow) => {
         const newData = [...data]
         newData.forEach((row, i) => {
             if (row.key === currentRow.key) {
-                row.kinerja.realisasi = value;
+                row.kinerja[index] = value;
             }
         })
         this.setState({ data: [...newData] });
@@ -49,7 +49,8 @@ export default class AddEditKec extends React.Component {
                                     target: spd.target,
                                     realisasi: spd.realisasi,
                                     kinerja: spd.kinerja,
-                                    progress: spd.progress
+                                    progress: spd.progress,
+                                    kinerja_committed: spd.kinerja_committed
                                 }))
                             })
                         }
@@ -64,20 +65,37 @@ export default class AddEditKec extends React.Component {
         })
     }
 
-    onClickKirimPenilaian = (_id) => {
-        this.props.socket.emit('api.socket.penilaian/s/onClickKirimPenilaian', { _id }, (response) => {
-            console.log(response);
+    onClickKirimPenilaian = (key, kinerja) => {
+        this.props.socket.emit('api.socket.penilaian/s/onClickKirimPenilaian', { _id : key, kinerja }, (response) => {
+            if(response.type === 200){
+                this.setState({
+                    semua_kegiatan: [
+                        ...this.state.semua_kegiatan.map(keg => {
+                            return {
+                                title: keg.title,
+                                data: keg.data.map(k => {
+                                    if (k.key === key) {
+                                        return { ...k, kinerja_committed: true }
+                                    } else return k;
+                                })
+                            }
+                        })
+                    ]
+                })
+            } else{
+
+            }
         })
     }
 
-    onClickEditPenilaian = (_id) => {
+    onClickEditPenilaian = (key) => {
         this.setState({
             semua_kegiatan: [
                 ...this.state.semua_kegiatan.map(keg => {
                     return {
                         title: keg.title,
                         data: keg.data.map(k => {
-                            if (k._id === _id) {
+                            if (k.key === key) {
                                 return { ...k, kinerja_committed: false }
                             } else return k;
                         })
@@ -152,14 +170,14 @@ export default class AddEditKec extends React.Component {
                 <Row>
                     <Col sm={24}>
                         <Collapse
-                            accordion
+                            accordion={true}
                             activeKey={activeKey}
                             onChange={(activeKey) => this.setState({ activeKey })}
                             expandIconPosition={"left"}
                         >
-                            {semua_kegiatan.length ? semua_kegiatan.map(keg => <Panel header={genTitle(keg.title, 100, keg.title, activeKey)} key={keg.title}>
+                            {semua_kegiatan.length ? semua_kegiatan.map(keg => <Panel header={genTitle(keg.title, Math.round((keg.data.reduce((a,b)=>(a+(b.kinerja_committed?1:0)),0))/keg.data.length*100), keg.title, activeKey)} key={keg.title}>
                                 <TablePenilaian data={keg.data} columns={columns(keg.data, this.onAfterChange, this.onClickEditPenilaian, this.onClickKirimPenilaian)} />
-                            </Panel>) : <strong>Tidak ada kegiatan Bulan ini.</strong>}
+                            </Panel>) : <Panel header="Tidak ada kegiatan"><strong>Tidak ada kegiatan Bulan ini.</strong></Panel>}
                         </Collapse>
                     </Col>
                 </Row>

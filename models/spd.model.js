@@ -168,6 +168,10 @@ var SPDSchema = new Schema({
             type: Number,
             default: 100
         },
+        ketepatan: {
+            type: Number,
+            default: 100
+        },
         kualitas: {
             type: Number,
             default: 100

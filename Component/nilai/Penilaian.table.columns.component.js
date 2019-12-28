@@ -27,7 +27,7 @@ export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian
                     disabled={currentRow.kinerja_committed}
                     defaultValue={kinerja.realisasi || 100}
                     min={80} max={100}
-                    onAfterChange={(value) => onAfterChange(value, data, currentRow)} />,
+                    onAfterChange={(value) => onAfterChange('realisasi', value, data, currentRow)} />,
             },
             {
                 title: 'Ketepatan',
@@ -39,7 +39,7 @@ export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian
                         disabled={currentRow.kinerja_committed}
                         defaultValue={kinerja.ketepatan || 100}
                         min={80} max={100}
-                        onAfterChange={(value) => onAfterChange(value, data, currentRow)} />,
+                        onAfterChange={(value) => onAfterChange('ketepatan', value, data, currentRow)} />,
             },
             {
                 title: 'Kualitas',
@@ -50,7 +50,7 @@ export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian
                     disabled={currentRow.kinerja_committed}
                     defaultValue={kinerja.kualitas || 100}
                     min={80} max={100}
-                    onAfterChange={(value) => onAfterChange(value, data, currentRow)} />,
+                    onAfterChange={(value) => onAfterChange('kualitas', value, data, currentRow)} />,
             },
             {
                 title: 'Kesungguhan',
@@ -61,7 +61,7 @@ export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian
                     disabled={currentRow.kinerja_committed}
                     defaultValue={kinerja.kesungguhan || 100}
                     min={80} max={100}
-                    onAfterChange={(value) => onAfterChange(value, data, currentRow)} />,
+                    onAfterChange={(value) => onAfterChange('kesungguhan', value, data, currentRow)} />,
             },
             {
                 title: 'Administrasi',
@@ -72,27 +72,23 @@ export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian
                     disabled={currentRow.kinerja_committed}
                     defaultValue={kinerja.administrasi || 100}
                     min={80} max={100}
-                    onAfterChange={(value) => onAfterChange(value, data, currentRow)} />,
+                    onAfterChange={(value) => onAfterChange('administrasi', value, data, currentRow)} />,
             },
             {
                 title: 'Pilihan',
-                width: 20,
+                width: 64,
                 dataIndex: 'kinerja_committed',
                 key: 'kinerja_committed',
-                render: (kinerja_committed, row) => {
-                    return (kinerja_committed ? <Button
-                        title="Ubah penilaian"
-                        type="default"
-                        shape="circle"
-                        icon="edit"
-                        onClick={() => onClickEditPenilaian(row._id)} />
-                        : <Button
-                            title="Kirim penilaian"
-                            type="primary"
-                            shape="circle"
-                            icon="check"
-                            onClick={() => onClickKirimPenilaian(row._id)} />)
-                }
+                render: (kinerja_committed, row) => (kinerja_committed ? <Button
+                    size="small"
+                    title="Ubah penilaian"
+                    type="default"
+                    onClick={() => onClickEditPenilaian(row.key)}>Edit</Button>
+                    : <Button
+                        size="small"
+                        title="Kirim penilaian"
+                        type="primary"
+                        onClick={() => onClickKirimPenilaian(row.key, row.kinerja)}>Kirim</Button>)
             },
         ]
     }

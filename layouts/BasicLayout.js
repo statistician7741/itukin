@@ -35,7 +35,7 @@ class BasicLayout extends React.Component {
         <Layout>
           <Header style={{ background: "#fff", padding: 0, textAlign: "center" }}>
             <span style={{float: "left", paddingLeft: 25}}><Link href="/"><a><img className="logo" src={`/static/logo1.png`} /></a></Link></span>
-            <span>{active_user.tahun_anggaran||true?<span><Tag color="#1DA57A">T.A. {active_user.tahun_anggaran||2020}</Tag> <Tag color="#1DA57A">{active_user.seksi||"Distribusi"}</Tag></span>:<Icon type='loading'/>}</span>
+            <span>{active_user.tahun_anggaran||true?<span><Tag color="#1DA57A">T.A. {active_user.tahun_anggaran||2019}</Tag> <Tag color="#1DA57A">{active_user.seksi||"Distribusi"}</Tag></span>:<Icon type='loading'/>}</span>
             <span className="right">
               <Dropdown overlay={menu}>
                 <span className={`action account`}>
