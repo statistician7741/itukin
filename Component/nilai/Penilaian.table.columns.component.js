@@ -5,7 +5,7 @@ export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian
         title: 'Petugas',
         dataIndex: 'nama',
         key: 'name',
-        render: text => <strong>{text}</strong>,
+        render: (text, row) => <strong>{text}</strong>,
     },
     {
         title: 'Realisasi',

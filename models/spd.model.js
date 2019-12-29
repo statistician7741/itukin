@@ -140,14 +140,8 @@ var SPDSchema = new Schema({
         }
     },
     'target': {
-        jumlah: {
-            type: Number,
-            default: 1
-        },
-        satuan: {
-            type: String,
-            default: 'Responden'
-        }
+        jumlah: Number,
+        satuan: String
     },
     "progress": [{
         time: Date,

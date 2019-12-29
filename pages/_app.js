@@ -49,21 +49,21 @@ class MyApp extends App {
     return { pageProps }
   }
 
-  // showInfoMessage = (msg) => {
-  //   message.info(msg);
-  // }
+  showInfoMessage = (msg) => {
+    message.info(msg);
+  }
 
-  // showSuccessMessage = (msg) => {
-  //   message.success(msg);
-  // }
+  showSuccessMessage = (msg) => {
+    message.success(msg);
+  }
 
-  // showWarningMessage = (msg) => {
-  //   message.warning(msg);
-  // }
+  showWarningMessage = (msg) => {
+    message.warning(msg);
+  }
 
-  // showErrorMessage = (msg) => {
-  //   message.error(msg);
-  // }
+  showErrorMessage = (msg) => {
+    message.error(msg);
+  }
 
   handleOnDisconnect = () => {
     notification.open({
@@ -110,6 +110,10 @@ class MyApp extends App {
           </Head>
           <Component
             {...pageProps}
+            showSuccessMessage = {this.showSuccessMessage}
+            showErrorMessage = {this.showErrorMessage}
+            showInfoMessage = {this.showInfoMessage}
+            showWarningMessage = {this.showWarningMessage}
           />
         </div>
       </Provider>
