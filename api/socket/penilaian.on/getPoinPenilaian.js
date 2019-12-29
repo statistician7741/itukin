@@ -4,8 +4,8 @@ const SPD = require('../../../models/spd.model');
 module.exports = (query, cb) => {
     const awal_bulan = moment().month(query.month).startOf('month')
     const akhir_bulan = moment().month(query.month).endOf('month')
-    SPD.find({
-        "reserved.seksi": query.seksi, "jenis_spd": "biasa", $and: [
+    const queryDB = {
+        "jenis_spd": "biasa", $and: [
             { "yang_bepergian.jab": { $ne: "Mitra" } },
             { "yang_bepergian.jab": { $not: /Kepala|Kasi|Koordinator\sSeksi|Koorsi/ } }
         ], "yang_bepergian.nama": { $ne: "Organik" }, $or: [
@@ -14,7 +14,9 @@ module.exports = (query, cb) => {
             { $and: [{ 'waktu.berangkat': { $lte: awal_bulan } }, { 'waktu.kembali': { $gte: akhir_bulan } }] },
             { $and: [{ 'waktu.berangkat': { $gte: awal_bulan } }, { 'waktu.kembali': { $lte: akhir_bulan } }] }
         ]
-    }, (e, r) => {
+    }
+    if(query.seksi !== "Semua Seksi") queryDB["reserved.seksi"] = query.seksi;
+    SPD.find( queryDB, (e, r) => {
         if (e) {
             console.log(e);
             cb({ type: 'error', data: "Gagal mengambil data SPD. Mohon hubungi admin." });

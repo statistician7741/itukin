@@ -4,6 +4,7 @@ import BasicLayout from "../layouts/BasicLayout";
 import { Row, Col, Card } from 'antd';
 
 import dynamic from 'next/dynamic';
+const Main = dynamic(()=>import('../Component/Summary/Main.component'))
 
 class Index extends React.Component {
     static async getInitialProps({ req, res }) {
@@ -13,13 +14,7 @@ class Index extends React.Component {
     render() {
         return (
             <BasicLayout isMobile={this.props.isMobile} router={this.props.router}>
-                <Row gutter={24} type="flex">
-                    <Col xs={6}>
-                        <Card bodyStyle={{ padding: '20px 24px 8px 24px' }}>
-                            Hello world!
-                        </Card>
-                    </Col>
-                </Row>
+                <Main {...this.props} />
             </BasicLayout>
         )
     }
