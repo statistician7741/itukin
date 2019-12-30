@@ -4,7 +4,7 @@ const async = require('async');
 
 module.exports = ({ baru_nama_keg, baru_petugas, baru_bulan_penilaian, seksi }, cb) => {
     const options = { upsert: true, new: true, setDefaultsOnInsert: true };
-    const getId = (bulan) => `${moment().format('YYYY')}_${bulan}_${baru_nama_keg}`;
+    const getId = (bulan) => `${moment().format('YYYY')}_${bulan}_${seksi}_${baru_nama_keg}`;
     let task = [];
     baru_bulan_penilaian.forEach(month => {
         task.push((cb_t) => {

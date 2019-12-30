@@ -8,7 +8,7 @@ const DrawerKegBaru = dynamic(() => import("./Penilaian.tambahan.drawer.children
 export default class TambahanDrawer extends React.Component {
     state = {
         title: "Tambah Penilaian",
-        edit_new_drawerVisible: true,
+        edit_new_drawerVisible: false,
         activeKey: undefined,
         baru_nama_keg: undefined,
         baru_petugas: [],

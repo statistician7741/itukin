@@ -28,7 +28,7 @@ export default class Penilaian extends React.Component {
         seksi: 'Tata Usaha',
         semua_kegiatan: [],
         semua_organik: [],
-        showTambahanPenilaianDrawer: true
+        showTambahanPenilaianDrawer: false
     }
 
     onCloseTambahanDrawer = () => {
@@ -196,7 +196,7 @@ export default class Penilaian extends React.Component {
 
     render() {
         const { activeKey, month, semua_kegiatan, seksi, semua_organik, showTambahanPenilaianDrawer } = this.state;
-
+        console.log(semua_organik);
         return (
             <React.Fragment>
                 <Row style={{ marginBottom: 7 }} gutter={[3, 0]} type="flex" align="middle">
