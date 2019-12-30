@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import moment from 'moment';
 const TableSummary = dynamic(() => import('./Summary.table.component'))
 import getPoinPenilaianSummary from "./Summary.function/getPoinPenilaianSummary";
+import getAllSeksiKinerja from "./Summary.function/getAllSeksiKinerja";
 import getSemuaOrganik from "../nilai/Penilaian.function/getSemuaOrganik";
 import columns from "./Summary.tabel.columns.component";
 import { Fragment } from 'react';
@@ -14,7 +15,8 @@ export default class Main extends React.Component {
         semua_kegiatan: [],
         semua_organik: [],
         seksi: "Semua Seksi",
-        month: moment().month()
+        month: moment().month(),
+        nilai_seksi: {}
     }
 
     getKegiatan = (month, seksi) => {
@@ -23,19 +25,21 @@ export default class Main extends React.Component {
             { month, seksi },
             (response) => {
                 getPoinPenilaianSummary(response, this.props, this.state.seksi, (result) => {
-                    this.setState(result)
+                    this.setState({semua_kegiatan:result.semua_kegiatan, nilai_seksi: getAllSeksiKinerja(result.semua_kegiatan)})
                 })
             }
         )
     }
 
-    getOrganik = (month) => {
+    getOrganik = (month, cb) => {
         this.props.socket.emit(
             'api.socket.penilaian/s/getSemuaOrganik',
             { month, tahun: moment().format('YYYY') },
             (response) => {
                 getSemuaOrganik(response, this.props, this.state.month, (result) => {
-                    this.setState(result)
+                    this.setState(result,()=>{
+                        cb&&cb();
+                    })
                 })
             }
         )
@@ -44,12 +48,11 @@ export default class Main extends React.Component {
     componentDidMount = () => {
         setTimeout(() => {
             const { month, seksi } = this.state;
-            this.getKegiatan(month, seksi);
-            this.getOrganik(month);
+            this.getOrganik(month, ()=>this.getKegiatan(month, seksi));
         }, 100)
     }
     render() {
-        const { semua_organik, semua_kegiatan, month, seksi } = this.state;
+        const { semua_organik, semua_kegiatan, month, seksi, nilai_seksi } = this.state;
         return <Fragment>
             <Typography style={{ textAlign: "center" }}>
                 <Typography.Title level={4}>REKAPITULASI TUNJANGAN KINERJA (KINERJA, ABSENSI, DAILY) BPS KABUPATEN KOLAKA</Typography.Title>
@@ -79,7 +82,7 @@ export default class Main extends React.Component {
             </Row>
             <Row gutter={24} type="flex">
                 <Col xs={24}>
-                    <TableSummary columns={columns(semua_kegiatan, semua_organik)} data={semua_organik} />
+                    <TableSummary columns={columns(semua_kegiatan, semua_organik, nilai_seksi)} data={semua_organik} />
                 </Col>
             </Row>
         </Fragment>

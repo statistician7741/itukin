@@ -20,7 +20,7 @@ export default (organik, semua_kegiatan, index) => {
                     }, 0
                 ) / semua_kegiatan[organik._id].length).toFixed(2);
             }
-        } else return (100).toFixed(2);
+        } return (100).toFixed(2);
     } catch (error) {
         return error
     }

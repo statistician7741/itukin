@@ -28,7 +28,7 @@ export default class Penilaian extends React.Component {
         seksi: 'Tata Usaha',
         semua_kegiatan: [],
         semua_organik: [],
-        showTambahanPenilaianDrawer: false
+        showTambahanPenilaianDrawer: true
     }
 
     onCloseTambahanDrawer = () => {
@@ -190,7 +190,7 @@ export default class Penilaian extends React.Component {
         setTimeout(() => {
             const { month, seksi } = this.state;
             this.getKegiatan(month, seksi);
-            if (seksi === "Tata Usaha") this.getOrganik(month);
+            this.getOrganik(month);
         }, 100)
     }
 
@@ -291,6 +291,10 @@ export default class Penilaian extends React.Component {
                     showTambahanPenilaianDrawer={showTambahanPenilaianDrawer}
                     onCloseTambahanDrawer={this.onCloseTambahanDrawer}
                     month={month}
+                    semua_organik={semua_organik}
+                    seksi={seksi}
+                    getOrganik={this.getOrganik}
+                    {...this.props}
                 />
             </React.Fragment>
         )

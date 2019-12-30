@@ -178,6 +178,11 @@ var SPDSchema = new Schema({
             type: Number,
             default: 100
         },
+        realisasi_c: String,
+        ketepatan_c: String,
+        kualitas_c: String,
+        kesungguhan_c: String,
+        administrasi_c: String,
     },
     "kinerja_committed": {
         type: Boolean,

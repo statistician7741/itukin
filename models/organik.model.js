@@ -8,31 +8,31 @@ var OrganikSchema = new Schema({
     "username": String,
     "password": {
         type: String,
-        set: (pass)=>(crypto.createHmac('sha256', pass).digest('hex'))
+        set: (pass) => (crypto.createHmac('sha256', pass).digest('hex'))
     },
     "niplama": String,
-    "nama" : String,
+    "nama": String,
     "pangkat": {
         type: String,
         default: 'Penata Muda'
     },
-    "nmjab" : String,
-    "nmgol" : String,
+    "nmjab": String,
+    "nmgol": String,
     "kendaraan": {
         type: String,
         default: 'Motor Dinas'
     },
     "pensiun": {
-    	type: Boolean,
-    	default: false
+        type: Boolean,
+        default: false
     },
     "pindah": {
-    	type: Boolean,
-    	default: false
+        type: Boolean,
+        default: false
     },
     "isProv": {
-    	type: Boolean,
-    	default: false
+        type: Boolean,
+        default: false
     },
     "tl": [{
         _id: String,
@@ -109,6 +109,45 @@ var OrganikSchema = new Schema({
         ct: {
             type: Number,
             default: 0
+        }
+    }],
+    "tambahan_keg": [{
+        _id: String, //2019_0_namaKeg
+        seksi: {
+            type: String,
+            default: 'Tata Usaha'
+        },
+        nama_keg: String,
+        kinerja_committed: {
+            type: Boolean,
+            default: false
+        },
+        kinerja: {
+            realisasi: {
+                type: Number,
+                default: 100
+            },
+            ketepatan: {
+                type: Number,
+                default: 100
+            },
+            kualitas: {
+                type: Number,
+                default: 100
+            },
+            kesungguhan: {
+                type: Number,
+                default: 100
+            },
+            administrasi: {
+                type: Number,
+                default: 100
+            },
+            realisasi_c: String,
+            ketepatan_c: String,
+            kualitas_c: String,
+            kesungguhan_c: String,
+            administrasi_c: String,
         }
     }]
 }, { collection: 'organik' });

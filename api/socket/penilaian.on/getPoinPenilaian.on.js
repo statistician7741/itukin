@@ -1,5 +1,6 @@
 const moment = require('moment');
 const SPD = require('../../../models/spd.model');
+const Kec = require('../../../models/kec.model');
 
 module.exports = (query, cb) => {
     const awal_bulan = moment().month(query.month).startOf('month')
@@ -15,7 +16,7 @@ module.exports = (query, cb) => {
         ]
     }
     if(query.seksi !== "Semua Seksi") queryDB["reserved.seksi"] = query.seksi;
-    SPD.find( queryDB, (e, r) => {
+    SPD.find( queryDB ).populate('tujuan1.lokasi tujuan2.lokasi tujuan3.lokasi').exec((e, r) => {
         if (e) {
             console.log(e);
             cb({ type: 'error', data: "Gagal mengambil data SPD. Mohon hubungi admin." });

@@ -1,9 +1,9 @@
 import { Timeline, Icon, Col, Row } from 'antd';
 
-export default ({ key, tgl, keterangan, photoUrl }) => {
+export default ({ key, tgl, jumlah, satuan, keterangan, photoUrl }) => {
     return <Timeline.Item key={key}>
         <Row>
-            <Col><strong>{tgl}</strong></Col>
+            <Col><strong>{`[${jumlah} ${satuan}] ${tgl}`}</strong></Col>
         </Row>
         <Row style={{ marginBottom: 6 }}>
             <Col>
