@@ -2,7 +2,7 @@ import { Col, Row, Typography, Select } from 'antd';
 import dynamic from 'next/dynamic';
 import moment from 'moment';
 const TableSummary = dynamic(() => import('./Summary.table.component'))
-import getPoinPenilaian from "../nilai/Penilaian.function/getPoinPenilaian";
+import getPoinPenilaianSummary from "./Summary.function/getPoinPenilaianSummary";
 import getSemuaOrganik from "../nilai/Penilaian.function/getSemuaOrganik";
 import columns from "./Summary.tabel.columns.component";
 import { Fragment } from 'react';
@@ -19,10 +19,10 @@ export default class Main extends React.Component {
 
     getKegiatan = (month, seksi) => {
         this.props.socket.emit(
-            'api.socket.penilaian/s/getPoinPenilaian',
+            'api.socket.penilaian/s/getPoinPenilaianSummary',
             { month, seksi },
             (response) => {
-                getPoinPenilaian(response, this.props, this.state.seksi, (result) => {
+                getPoinPenilaianSummary(response, this.props, this.state.seksi, (result) => {
                     this.setState(result)
                 })
             }
@@ -65,7 +65,7 @@ export default class Main extends React.Component {
                         onChange={(v) => this.setState({ month: v }, () => {
                             const { month } = this.state;
                             this.getKegiatan(month, seksi);
-                            if (seksi === "Tata Usaha") this.getOrganik(month);
+                            this.getOrganik(month);
                         })}
                         style={{ width: "100%" }}
                     >

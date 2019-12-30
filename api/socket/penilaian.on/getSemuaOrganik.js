@@ -35,7 +35,11 @@ module.exports = (query, cb) => {
                 _id,
                 d_c_committed: false,
                 daily: 0,
-                cuti: 0
+                cb: 0,
+                cp: 0,
+                cm: 0,
+                cs: 0,
+                ct: 0,
             }
         }
     }, (e, r) => {

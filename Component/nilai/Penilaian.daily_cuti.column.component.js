@@ -31,9 +31,9 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeDailyCuti) 
     title: 'Cuti',
     dataIndex: 'cuti',
     children: [{
-        title: 'CB/CP/CM',
-        dataIndex: 'daily_cuti.cuti',
-        key: 'daily_cuti.cuti',
+        title: 'CB',
+        dataIndex: 'daily_cuti.cb',
+        key: 'cb',
         render: (value, row) => <InputNumber
             disabled={row.daily_cuti.d_c_committed}
             size="large"
@@ -41,7 +41,55 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeDailyCuti) 
             max={23}
             value={value}
             defaultValue={0}
-            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'cuti', value, row)} />,
+            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'cb', value, row)} />,
+    },{
+        title: 'CP',
+        dataIndex: 'daily_cuti.cp',
+        key: 'cp',
+        render: (value, row) => <InputNumber
+            disabled={row.daily_cuti.d_c_committed}
+            size="large"
+            min={0}
+            max={23}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'cp', value, row)} />,
+    },{
+        title: 'CM',
+        dataIndex: 'daily_cuti.cm',
+        key: 'cm',
+        render: (value, row) => <InputNumber
+            disabled={row.daily_cuti.d_c_committed}
+            size="large"
+            min={0}
+            max={23}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'cm', value, row)} />,
+    },{
+        title: 'CS',
+        dataIndex: 'daily_cuti.cs',
+        key: 'cs',
+        render: (value, row) => <InputNumber
+            disabled={row.daily_cuti.d_c_committed}
+            size="large"
+            min={0}
+            max={23}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'cs', value, row)} />,
+    },{
+        title: 'CT',
+        dataIndex: 'daily_cuti.ct',
+        key: 'ct',
+        render: (value, row) => <InputNumber
+            disabled={row.daily_cuti.d_c_committed}
+            size="large"
+            min={0}
+            max={23}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'ct', value, row)} />,
     }]
 },
 {

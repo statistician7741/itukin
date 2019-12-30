@@ -9,6 +9,7 @@ export default (response, props, seksi, cb) => {
                         data: response.data.kegiatan[keg].map(spd => ({
                             key: spd._id,
                             nama: spd.yang_bepergian.nama,
+                            nip: spd.yang_bepergian.nip,
                             nomor: spd.nomor,
                             tgl_buat_spd: spd.tgl_buat_spd,
                             waktu: spd.waktu,

@@ -1,3 +1,7 @@
+import hitungKinerja from "./Summary.function/hitungKinerja";
+import hitungTLPSW from "./Summary.function/hitungTLPSW";
+import hitungTotalTukin from "./Summary.function/hitungTotalTukin";
+
 export default (semua_kegiatan, semua_organik) => [{
     title: 'Nama',
     dataIndex: 'nama',
@@ -8,7 +12,43 @@ export default (semua_kegiatan, semua_organik) => [{
     title: 'KINERJA (TK-K)',
     dataIndex: 'kinerja',
     key: 'kinerja',
-    render: (value, row) => '100'
+    children: [{
+        title: 'REALISASI',
+        dataIndex: 'kinerja',
+        key: 'kinerja.realisasi',
+        align: 'right',
+        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'realisasi')
+    },{
+        title: 'KETEPATAN',
+        dataIndex: 'kinerja',
+        key: 'kinerja.ketepatan',
+        align: 'right',
+        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'ketepatan')
+    },{
+        title: 'KUALITAS',
+        dataIndex: 'kinerja',
+        key: 'kinerja.kualitas',
+        align: 'right',
+        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'kualitas')
+    },{
+        title: 'KESUNGGUHAN',
+        dataIndex: 'kinerja',
+        key: 'kinerja.kesungguhan',
+        align: 'right',
+        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'kesungguhan')
+    },{
+        title: 'ADMINISTRASI',
+        dataIndex: 'kinerja',
+        key: 'kinerja.adm',
+        align: 'right',
+        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'administrasi')
+    },{
+        title: 'TOTAL',
+        dataIndex: 'kinerja',
+        key: 'kinerja',
+        align: 'right',
+        render: (value, row) => hitungKinerja(row, semua_kegiatan)
+    }]
 },
 {
     title: 'ABSENSI',
@@ -17,12 +57,14 @@ export default (semua_kegiatan, semua_organik) => [{
         title: 'TL/PSW1-4',
         dataIndex: 'tl_psw',
         key: 'tl_psw',
-        render: (value, row) => '0'
+        align: 'right',
+        render: (tl_psw, { tl, psw }) => hitungTLPSW(tl, psw)
     }, {
         title: 'TK-A',
         dataIndex: 'tk_a',
         key: 'tk_a',
-        render: (value, row) => '100'
+        align: 'right',
+        render: (value, { tl, psw }) => hitungTLPSW(tl, psw) < 2 ? 100 : 99
     }]
 },
 {
@@ -30,34 +72,63 @@ export default (semua_kegiatan, semua_organik) => [{
     dataIndex: 'daily',
     children: [{
         title: 'KOSONG',
-        dataIndex: 'daily.kosong',
+        dataIndex: 'daily_cuti.daily',
         key: 'daily.kosong',
-        render: (value, row) => '0'
+        align: 'right',
+        render: (value, row) => value
     }, {
         title: 'POTONGAN TK',
-        dataIndex: 'potongan_tk',
+        dataIndex: 'daily_cuti.daily',
         key: 'potongan_tk',
-        render: (value, row) => '0.00'
+        align: 'right',
+        render: (value, row) => (value*.05).toFixed(2)
     }, {
         title: 'TK-D',
-        dataIndex: 'tk_d',
+        dataIndex: 'daily_cuti.daily',
         key: 'tk_d',
-        render: (value, row) => '100'
+        align: 'right',
+        render: (value, row) => hitungKinerja(row, semua_kegiatan)==='-'?'-':(hitungKinerja(row, semua_kegiatan) - value*.05).toFixed(2)
     }]
 },
 {
     title: 'CUTI',
-    dataIndex: 'cuti',
+    dataIndex: 'daily_cuti',
     children: [{
-        title: 'CB/CP/CM',
-        dataIndex: 'cb_cp_cm',
-        key: 'cb_cp_cm',
-        render: (value, row) => '0'
+        title: 'CB',
+        dataIndex: 'daily_cuti.cb',
+        key: 'cb',
+        align: 'right',
+        render: (value, row) => value
+    },{
+        title: 'CP',
+        dataIndex: 'daily_cuti.cp',
+        key: 'cp',
+        align: 'right',
+        render: (value, row) => value
+    },{
+        title: 'CM',
+        dataIndex: 'daily_cuti.cm',
+        key: 'cm',
+        align: 'right',
+        render: (value, row) => value
+    },{
+        title: 'CS',
+        dataIndex: 'daily_cuti.cs',
+        key: 'cs',
+        align: 'right',
+        render: (value, row) => value
+    },{
+        title: 'CT',
+        dataIndex: 'daily_cuti.ct',
+        key: 'ct',
+        align: 'right',
+        render: (value, row) => value
     }]
 },
 {
     title: 'TOTAL TUNJANGAN KINERJA',
     dataIndex: 'total',
     key: 'total',
-    render: (value, row) => '100'
+    align: 'right',
+    render: (value, row) => hitungTotalTukin(row, semua_kegiatan, semua_organik)
 }]

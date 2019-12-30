@@ -90,7 +90,23 @@ var OrganikSchema = new Schema({
             type: Number,
             default: 0
         },
-        cuti: {
+        cb: {
+            type: Number,
+            default: 0
+        },
+        cp: {
+            type: Number,
+            default: 0
+        },
+        cm: {
+            type: Number,
+            default: 0
+        },
+        cs: {
+            type: Number,
+            default: 0
+        },
+        ct: {
             type: Number,
             default: 0
         }

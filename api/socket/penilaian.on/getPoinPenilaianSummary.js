@@ -6,7 +6,7 @@ module.exports = (query, cb) => {
     const akhir_bulan = moment().month(query.month).endOf('month')
     const queryDB = {
         "jenis_spd": "biasa", $and: [
-            { "yang_bepergian.jab": { $not: /Kepala\sBPS|Kepala Badan Pusat/ } }
+            { "yang_bepergian.jab": { $not: /Kepala\sBPS|Kepala Badan Pusat|Mitra/ } }
         ], "yang_bepergian.nama": { $ne: "Organik" }, $or: [
             { $and: [{ 'waktu.berangkat': { $gte: awal_bulan } }, { 'waktu.berangkat': { $lte: akhir_bulan } }] },
             { $and: [{ 'waktu.kembali': { $gte: awal_bulan } }, { 'waktu.kembali': { $lte: akhir_bulan } }] },
@@ -20,16 +20,16 @@ module.exports = (query, cb) => {
             console.log(e);
             cb({ type: 'error', data: "Gagal mengambil data SPD. Mohon hubungi admin." });
         } else {
-            const kegiatan = {};
+            const semua_kegiatan = {};
             if (r.length) {
                 r.forEach(spd => {
-                    if (!kegiatan[spd.maksud]) {
-                        kegiatan[spd.maksud] = [];
+                    if (!semua_kegiatan[spd.yang_bepergian.nip]) {
+                        semua_kegiatan[spd.yang_bepergian.nip] = [];
                     }
-                    kegiatan[spd.maksud].push(spd)
+                    semua_kegiatan[spd.yang_bepergian.nip].push(spd)
                 })
             }
-            cb({ type: 200, data: { kegiatan, length: r.length } });
+            cb({ type: 200, data: { semua_kegiatan, length: r.length } });
         }
     })
 }
