@@ -1,4 +1,4 @@
-import { Drawer, Row, Col, Button, Collapse } from 'antd';
+import { Drawer, Row, Col, Button, Collapse, Popconfirm } from 'antd';
 import moment from 'moment';
 const { Panel } = Collapse;
 
@@ -69,7 +69,11 @@ export default class TambahanDrawer extends React.Component {
                     >
                         {semua_tambahan_kegiatan.length ? semua_tambahan_kegiatan.map((t_g, i) => <Panel header={genTitle(t_g.title, t_g.title, activeKey)} key={t_g.title}
                         >
-                            {t_g.data.map(organik => <strong>{organik.nama}, </strong>)}
+                            Petugas: {t_g.data.map(organik => <div>{organik.nama}</div>)}
+                            <Button size="large" icon="edit" />
+                            <Popconfirm title={`Hapus poin penilaian ini?`} onConfirm={() => console.log("Hapus")}>
+                                <Button size="large" style={{ marginLeft: 5 }} icon="delete" />
+                            </Popconfirm>
                         </Panel>) : <Panel
                             header="Tidak ada tambahan poin penilaian"
                             key="none"
