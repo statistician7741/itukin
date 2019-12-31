@@ -5,6 +5,10 @@ const { Panel } = Collapse;
 import dynamic from 'next/dynamic';
 const DrawerKegBaru = dynamic(() => import("./Penilaian.tambahan.drawer.children.componen"));
 
+const genTitle = (title, key, stateKey) => (
+    <span>{key === stateKey ? <strong>{title}</strong> : title}</span>
+);
+
 export default class TambahanDrawer extends React.Component {
     state = {
         title: "Tambah Penilaian",
@@ -33,7 +37,7 @@ export default class TambahanDrawer extends React.Component {
             (response) => {
                 if (response.type === 200) {
                     this.props.showSuccessMessage("Berhasil ditambahkan.")
-                    this.props.getOrganik(month)
+                    this.props.getOrganik(month, seksi)
                 } else {
                     this.props.showErrorMessage("Terjadi error.")
                 }
@@ -42,7 +46,7 @@ export default class TambahanDrawer extends React.Component {
 
     render() {
         const { edit_new_drawerVisible, activeKey, title } = this.state;
-        const { showTambahanPenilaianDrawer, onCloseTambahanDrawer, month } = this.props;
+        const { showTambahanPenilaianDrawer, onCloseTambahanDrawer, month, semua_tambahan_kegiatan } = this.props;
         return <Drawer
             title={`Poin Penilaian Tambahan (${moment().month(month).format('MMMM YYYY')})`}
             width={640}
@@ -63,11 +67,15 @@ export default class TambahanDrawer extends React.Component {
                         onChange={(activeKey) => this.setState({ activeKey })}
                         expandIconPosition={"left"}
                     >
-                        <Panel
-                            header="Digitasi Pemetaan"
+                        {semua_tambahan_kegiatan.length ? semua_tambahan_kegiatan.map((t_g, i) => <Panel header={genTitle(t_g.title, t_g.title, activeKey)} key={t_g.title}
                         >
-                            Hello World!
-                        </Panel>
+                            {t_g.data.map(organik => <strong>{organik.nama}, </strong>)}
+                        </Panel>) : <Panel
+                            header="Tidak ada tambahan poin penilaian"
+                            key="none"
+                        >
+                                Silahkan tambah Penilaian Baru.
+                        </Panel>}
                     </Collapse>
                 </Col>
             </Row>

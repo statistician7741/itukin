@@ -2,10 +2,12 @@ import { Col, Collapse, Row, Progress, Select, Typography, Button } from 'antd'
 import moment from 'moment';
 moment.locale('id');
 import columns from './Penilaian.table.columns.component';
+import tambahanColumns from "./Penilaian.tambahan.columns.component";
 const { Option } = Select;
 
 import dynamic from 'next/dynamic';
 const TablePenilaian = dynamic(() => import("./Penilaian.table.component"));
+const TablePenilaianTambahan = dynamic(() => import("./Penilaian.tambahan.table"));
 const TablePenilaianTlpsw = dynamic(() => import("./Penilaian.tlpsw.component"));
 const TablePenilaianDailyCuti = dynamic(() => import("./Penilaian.daily_cuti"));
 const PenilaianTambahanDrawer = dynamic(() => import("./Penilaian.tambahan.drawer.component"));
@@ -14,6 +16,7 @@ import getSemuaOrganik from "./Penilaian.function/getSemuaOrganik";
 import onClickKirimPenilaian from "./Penilaian.function/onClickKirimPenilaian";
 import onClickKirimAbsPenilaian from "./Penilaian.function/onClickKirimAbsPenilaian";
 import onClickKirimDailyCutiPenilaian from "./Penilaian.function/onClickKirimDailyCutiPenilaian";
+import getTambahanKeg from "./Penilaian.function/getTambahanKeg";
 
 const { Panel } = Collapse;
 
@@ -27,6 +30,7 @@ export default class Penilaian extends React.Component {
         month: moment().month(),
         seksi: 'Tata Usaha',
         semua_kegiatan: [],
+        semua_tambahan_kegiatan: [],
         semua_organik: [],
         showTambahanPenilaianDrawer: false
     }
@@ -65,13 +69,15 @@ export default class Penilaian extends React.Component {
         )
     }
 
-    getOrganik = (month) => {
+    getOrganik = (month, seksi) => {
         this.props.socket.emit(
             'api.socket.penilaian/s/getSemuaOrganik',
             { month, tahun: moment().format('YYYY') },
             (response) => {
-                getSemuaOrganik(response, this.props, this.state.month, (result) => {
-                    this.setState(result)
+                getSemuaOrganik(response, this.props, month, (result) => {
+                    this.setState(result, ()=>{
+                        this.setState({semua_tambahan_kegiatan: getTambahanKeg(month, seksi, result.semua_organik)})
+                    })
                 })
             }
         )
@@ -190,13 +196,12 @@ export default class Penilaian extends React.Component {
         setTimeout(() => {
             const { month, seksi } = this.state;
             this.getKegiatan(month, seksi);
-            this.getOrganik(month);
+            this.getOrganik(month, seksi);
         }, 100)
     }
 
     render() {
-        const { activeKey, month, semua_kegiatan, seksi, semua_organik, showTambahanPenilaianDrawer } = this.state;
-        console.log(semua_organik);
+        const { activeKey, month, semua_kegiatan, seksi, semua_organik, showTambahanPenilaianDrawer, semua_tambahan_kegiatan } = this.state;
         return (
             <React.Fragment>
                 <Row style={{ marginBottom: 7 }} gutter={[3, 0]} type="flex" align="middle">
@@ -210,7 +215,7 @@ export default class Penilaian extends React.Component {
                             onChange={(v) => this.setState({ month: v }, () => {
                                 const { month, seksi } = this.state;
                                 this.getKegiatan(month, seksi);
-                                if (seksi === "Tata Usaha") this.getOrganik(month);
+                                this.getOrganik(month, seksi);
                             })}
                             style={{ width: "100%" }}
                         >
@@ -231,6 +236,7 @@ export default class Penilaian extends React.Component {
                             onChange={(v) => this.setState({ seksi: v }, () => {
                                 const { month, seksi } = this.state;
                                 this.getKegiatan(month, seksi);
+                                this.getOrganik(month, seksi);
                             })}
                             style={{ width: "100%" }}
                         >
@@ -283,7 +289,10 @@ export default class Penilaian extends React.Component {
                             </Panel> : null}
                             {semua_kegiatan.length ? semua_kegiatan.map(keg => <Panel header={genTitle(keg.title, Math.round((keg.data.reduce((a, b) => (a + (b.kinerja_committed ? 1 : 0)), 0)) / keg.data.length * 100), keg.title, activeKey)} key={keg.title}>
                                 <TablePenilaian data={keg.data} columns={columns(keg.data, this.onAfterChange, this.onClickEditPenilaian, this.onClickKirimPenilaian)} />
-                            </Panel>) : <Panel header="Tidak ada kegiatan perjalanan dinas"><strong>Tidak ada kegiatan perjalanan dinas Bulan ini.</strong></Panel>}
+                            </Panel>) : null}
+                            {/* {semua_organik.length ? semua_organik.map(keg => <Panel header={genTitle(keg.title, Math.round((keg.data.reduce((a, b) => (a + (b.kinerja_committed ? 1 : 0)), 0)) / keg.data.length * 100), keg.title, activeKey)} key={keg.title}>
+                                <TablePenilaianTambahan data={keg.data} columns={tambahanColumns(keg.data, this.onAfterChange, this.onClickEditPenilaian, this.onClickKirimPenilaian)} />
+                            </Panel>) : null} */}
                         </Collapse>
                     </Col>
                 </Row>
@@ -292,6 +301,7 @@ export default class Penilaian extends React.Component {
                     onCloseTambahanDrawer={this.onCloseTambahanDrawer}
                     month={month}
                     semua_organik={semua_organik}
+                    semua_tambahan_kegiatan={semua_tambahan_kegiatan}
                     seksi={seksi}
                     getOrganik={this.getOrganik}
                     {...this.props}
