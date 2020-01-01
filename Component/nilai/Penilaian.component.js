@@ -212,15 +212,15 @@ export default class Penilaian extends React.Component {
         this.setState({
             semua_organik: [
                 ...this.state.semua_organik.map(organik => {
-                    if(organik._id !== nip) return organik;
-                     else return {
+                    if (organik._id !== nip) return organik;
+                    else return {
                         ...organik,
-                        tambahan_keg: organik.tambahan_keg.map(keg=>{
-                            if(keg._id !== id_keg_tamb) return keg;
-                                else return {
-                                    ...keg,
-                                    kinerja_committed: false
-                                }
+                        tambahan_keg: organik.tambahan_keg.map(keg => {
+                            if (keg._id !== id_keg_tamb) return keg;
+                            else return {
+                                ...keg,
+                                kinerja_committed: false
+                            }
                         })
                     }
                 })
@@ -296,8 +296,13 @@ export default class Penilaian extends React.Component {
                             ].map((s, i) => (<Option value={s} key={i}><strong>{s}</strong></Option>))}
                         </Select>
                     </Col>
-                    <Col xs={4} push={7}>
+                    <Col xs={4} push={5}>
                         <Button type="primary" icon="plus" onClick={this.showTambahanDrawer}>Poin Penilaian Tambahan</Button>
+                    </Col>
+                    <Col xs={4} push={5}>
+                        <a href='/summary'>
+                            <Button type="default">Lihat Hasil Penilaian</Button>
+                        </a>
                     </Col>
                 </Row>
                 <Typography style={{ textAlign: "center" }}>

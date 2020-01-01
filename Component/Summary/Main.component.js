@@ -1,4 +1,4 @@
-import { Col, Row, Typography, Select, Card } from 'antd';
+import { Col, Row, Typography, Select, Card, Button } from 'antd';
 import dynamic from 'next/dynamic';
 import moment from 'moment';
 const TableSummary = dynamic(() => import('./Summary.table.component'))
@@ -51,7 +51,7 @@ export default class Main extends React.Component {
             { _id, all_spd_id, month: this.state.month, isApproved },
             (response) => {
                 onClickApprovedResponseHandle(response, this.state, _id, isApproved, this.props, (result) => {
-                    this.setState(result,()=>this.props.showSuccessMessage("Berhasil dikirim."))
+                    this.setState(result, () => this.props.showSuccessMessage("Berhasil dikirim."))
                 })
             }
         )
@@ -102,6 +102,11 @@ export default class Main extends React.Component {
                         ].map((m, i) => (<Option value={i} key={i}><strong>{m}</strong></Option>))}
                     </Select>
                 </Col>
+                <Col xs={4} push={15}>
+                    <a href='/'>
+                        <Button type="primary">Lihat Penilaian</Button>
+                    </a>
+                </Col>
             </Row>
             <Row gutter={16}>
                 <Col span={4}>
@@ -139,13 +144,13 @@ export default class Main extends React.Component {
                 <Col xs={24}>
                     <TableSummary
                         columns={columns(
-                            semua_kegiatan, 
-                            semua_organik, 
-                            nilai_seksi, 
-                            tahun_anggaran, 
-                            month, 
-                            this.onClickApproved, 
-                            nmjab?/kepala\sbps|kepala\sbadan/i.test(nmjab):false
+                            semua_kegiatan,
+                            semua_organik,
+                            nilai_seksi,
+                            tahun_anggaran,
+                            month,
+                            this.onClickApproved,
+                            nmjab ? /kepala\sbps|kepala\sbadan/i.test(nmjab) : false
                         )}
                         data={semua_organik}
                         tahun_anggaran={tahun_anggaran}
