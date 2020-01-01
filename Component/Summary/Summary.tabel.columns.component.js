@@ -149,7 +149,7 @@ export default (semua_kegiatan, semua_organik, nilai_seksi, tahun_anggaran, mont
             title="Klik untuk finalkan Besaran Tunjangan Kinerja"
             type="primary"
             onClick={() => onClickApproved(row._id, isSdhSetujui(row, semua_kegiatan).all_spd_id, true)}>Setujui</Button>:'-')):(
-                isSdhSetujui(row, semua_kegiatan).status?<Tag color="#f50">Belum disetujui</Tag>:
+                !isSdhSetujui(row, semua_kegiatan).status?<Tag color="#f50">Belum disetujui</Tag>:
                 <Tag color="#87d068">Disetujui</Tag>
             )
 }]
