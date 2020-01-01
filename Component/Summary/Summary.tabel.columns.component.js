@@ -1,8 +1,10 @@
+import { Button, Tag } from 'antd'
 import hitungKinerja from "./Summary.function/hitungKinerja";
 import hitungTLPSW from "./Summary.function/hitungTLPSW";
 import hitungTotalTukin from "./Summary.function/hitungTotalTukin";
+import isSdhSetujui from "./Summary.function/isSdhSetujui";
 
-export default (semua_kegiatan, semua_organik, nilai_seksi) => [{
+export default (semua_kegiatan, semua_organik, nilai_seksi, tahun_anggaran, month, onClickApproved, isKepalaKantor) => [{
     title: 'Nama',
     dataIndex: 'nama',
     key: 'name',
@@ -17,37 +19,37 @@ export default (semua_kegiatan, semua_organik, nilai_seksi) => [{
         dataIndex: 'kinerja',
         key: 'kinerja.realisasi',
         align: 'right',
-        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'realisasi')
+        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'realisasi', tahun_anggaran, month)
     }, {
         title: 'KETEPATAN',
         dataIndex: 'kinerja',
         key: 'kinerja.ketepatan',
         align: 'right',
-        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'ketepatan')
+        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'ketepatan', tahun_anggaran, month)
     }, {
         title: 'KUALITAS',
         dataIndex: 'kinerja',
         key: 'kinerja.kualitas',
         align: 'right',
-        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'kualitas')
+        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'kualitas', tahun_anggaran, month)
     }, {
         title: 'KESUNGGUHAN',
         dataIndex: 'kinerja',
         key: 'kinerja.kesungguhan',
         align: 'right',
-        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'kesungguhan')
+        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'kesungguhan', tahun_anggaran, month)
     }, {
         title: 'ADMINISTRASI',
         dataIndex: 'kinerja',
         key: 'kinerja.adm',
         align: 'right',
-        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'administrasi')
+        render: (value, row) => hitungKinerja(row, semua_kegiatan, 'administrasi', tahun_anggaran, month)
     }, {
         title: 'TOTAL',
         dataIndex: 'kinerja',
         key: 'kinerja',
         align: 'right',
-        render: (value, row) => <strong>{hitungKinerja(row, semua_kegiatan)}</strong>
+        render: (value, row) => <strong>{hitungKinerja(row, semua_kegiatan, undefined, tahun_anggaran, month)}</strong>
     }]
 },
 {
@@ -64,7 +66,7 @@ export default (semua_kegiatan, semua_organik, nilai_seksi) => [{
         dataIndex: 'tk_a',
         key: 'tk_a',
         align: 'right',
-        render: (value, { tl, psw }) => <strong>{hitungTLPSW(tl, psw) < 2 ? 100 : 99}</strong>
+        render: (value, { tl, psw }) => <strong>{hitungTLPSW(tl, psw) === '-' ? '-' : (hitungTLPSW(tl, psw) < 2 ? 100 : 99)}</strong>
     }]
 },
 {
@@ -126,9 +128,28 @@ export default (semua_kegiatan, semua_organik, nilai_seksi) => [{
     }]
 },
 {
-    title: 'TOTAL TUNJANGAN KINERJA',
+    title: 'TOTAL TK',
     dataIndex: 'total',
     key: 'total',
     align: 'right',
-    render: (value, row) => <strong>{hitungTotalTukin(row, semua_kegiatan, nilai_seksi, true)}</strong>
+    render: (value, row) => <strong>{hitungTotalTukin(row, semua_kegiatan, nilai_seksi, true, tahun_anggaran, month)}</strong>
+},
+{
+    title: 'Persetujuan',
+    dataIndex: 'kinerja_committed',
+    key: 'kinerja_committed',
+    align: 'center',
+    render: (kinerja_committed, row) => isKepalaKantor?(isSdhSetujui(row, semua_kegiatan).status ? <Button
+        size="small"
+        title="Klik untuk membatalkan persetujuan agar bisa diubah"
+        type="default"
+        onClick={() => onClickApproved(row._id, isSdhSetujui(row, semua_kegiatan).all_spd_id, false)}>Disetujui</Button>
+        : (hitungTotalTukin(row, semua_kegiatan, nilai_seksi, true, tahun_anggaran, month)!=='-'?<Button
+            size="small"
+            title="Klik untuk finalkan Besaran Tunjangan Kinerja"
+            type="primary"
+            onClick={() => onClickApproved(row._id, isSdhSetujui(row, semua_kegiatan).all_spd_id, true)}>Setujui</Button>:'-')):(
+                isSdhSetujui(row, semua_kegiatan).status?<Tag color="#f50">Belum disetujui</Tag>:
+                <Tag color="#87d068">Disetujui</Tag>
+            )
 }]

@@ -110,70 +110,15 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi) =>
             onChange={(value)=>onChangeAbsensi('psw', 'psw4', value, row)} />,
     }]
 },
-// {
-//     title: 'Daily',
-//     dataIndex: 'daily',
-//     children: [{
-//         title: 'Kosong',
-//         dataIndex: 'daily.kosong',
-//         key: 'daily.kosong',
-//         render: (value, row) => <InputNumber
-//             disabled={row.tl.absensi_committed}
-            // size="large"
-//             disabled={row.tl.absensi_committed}
-            // size="large"
-//             min={0}
-//             max={31}
-//             value={value}
-//             defaultValue={0}
-//             onChange={onChangeAbsensi} />,
-//     }, {
-//         title: 'Potongan TK',
-//         dataIndex: 'daily',
-//         key: 'daily.potongan',
-//         render: value => <span>{value}</span>,
-//     },]
-// }, {
-//     title: 'Cuti',
-//     dataIndex: 'cuti',
-//     children: [{
-//         title: 'CB/CP/CM',
-//         dataIndex: 'cuti.cb_cp_cm',
-//         key: 'cuti.cb_cp_cm',
-//         render: (value, row) => <InputNumber
-//             disabled={row.tl.absensi_committed}
-            // size="large"
-//             disabled={row.tl.absensi_committed}
-            // size="large"
-//             min={0}
-//             max={31}
-//             value={value}
-//             defaultValue={0}
-//             onChange={onChangeAbsensi} />,
-//     }, {
-//         title: 'CT',
-//         dataIndex: 'cuti.tahunan',
-//         key: 'cuti.tahunan',
-//         render: (value, row) => <InputNumber
-//             disabled={row.tl.absensi_committed}
-            // size="large"
-//             disabled={row.tl.absensi_committed}
-            // size="large"
-//             min={0}
-//             max={31}
-//             value={value}
-//             defaultValue={0}
-//             onChange={onChangeAbsensi} />,
-//     },]
-// },
 {
     title: 'Pilihan',
     width: 64,
     dataIndex: 'absensi_committed',
     key: 'absensi_committed',
     render: (absensi_committed, row) => (row.tl.absensi_committed ? <Button
+        disabled={row.tl.absensi_approved}
         size="small"
-        title="Ubah penilaian"
+        title={row.tl.absensi_approved?"Sudah disetujui Kepala Kantor":"Ubah penilaian"}
         type="default"
         onClick={() => onClickEditPenilaian(row._id)}>Edit</Button>
         : <Button

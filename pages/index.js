@@ -24,7 +24,8 @@ class Index extends React.Component {
 
 function mapStateToProps(state) {
   const { socket } = state.socket
-  return { socket }
+  const { active_user } = state.organik
+  return { socket, active_user }
 }
 
 export default connect(mapStateToProps)(Index)

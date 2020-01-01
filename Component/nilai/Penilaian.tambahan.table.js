@@ -1,9 +1,8 @@
 import { Table } from 'antd'
 const moment = require("moment");
 moment.locale("id")
-import { getDateRange, getNomorSPD, setTujuanInput } from '../../functions/clientServerValid.function';
 
-export default ({ data, ok}) => {
+export default ({ data, columns}) => {
     return <Table columns={columns}
         dataSource={data}
         size="small"

@@ -49,6 +49,32 @@ let runServer = () => {
       server.use('/api/login', require("./api/login.api"));
 
       //cek login, urutan harus di bawah route login
+      const all_client_pc_id = require('./all_client_pc_id');
+      let login_check = function (req, res, next) {
+        if (/^\/login$/.test(req.url)) {
+          if (req.cookies.organik_id) res.redirect('/')
+          else next();
+        } else if (/login|static|_next/.test(req.url)) {
+          next();
+        } else if (!req.cookies.organik_id) {
+          res.redirect('/login')
+        } else {
+          if (req.cookies.organik_id && all_client_pc_id[req.cookies.organik_id]) {
+            if (all_client_pc_id[req.cookies.organik_id] !== req.cookies.pc_id) {
+              res.clearCookie('pc_id');
+              res.clearCookie('jabatan');
+              res.clearCookie('seksi');
+              res.clearCookie('organik_id');
+              res.clearCookie('organik_nama');
+              res.clearCookie('tahun_anggaran');
+              res.redirect('/login')
+              return
+            }
+          }
+          next()
+        }
+      }
+      server.use(login_check)
 
       //Kompresi gzip
       const compression = require('compression');
@@ -76,8 +102,8 @@ let runServer = () => {
         //   }
         //   all_connected_clients[client.handshake.cookies.organik_id][client.handshake.cookies.io] = client
         require('./api/socket/penilaian.api.socket')(client, all_connected_clients)
-        //   require('./api/socket/maksud.socket.api')(client, all_connected_clients)
-        //   require('./api/socket/organik.socket.api')(client, all_connected_clients)
+        require('./api/socket/pok.api.socket')(client, all_connected_clients)
+        require('./api/socket/organik.api.socket')(client, all_connected_clients)
         // require('./api/socket/spd.socket.api')(client, all_connected_clients)
         // }
         // require('./api/socket/pok.socket.api')(client, all_connected_clients)

@@ -5,15 +5,19 @@ const onClickKirimPenilaian = require('./penilaian.on/onClickKirimPenilaian.on')
 const onClickKirimAbsPenilaian = require('./penilaian.on/onClickKirimAbsPenilaian.on');
 const onClickKirimDailyCutiPenilaian = require('./penilaian.on/onClickKirimDailyCutiPenilaian.on');
 const onClickSimpanKegBaru = require('./penilaian.on/onClickSimpanKegBaru.on');
+const onClickKirimPenilaianTambahan = require('./penilaian.on/onClickKirimPenilaianTambahan.on');
+const setApproved = require('./penilaian.on/setApproved.on');
 
 function applyToClient(client) {
-    client.on('api.socket.penilaian/s/getSemuaOrganik', getSemuaOrganik);
-    client.on('api.socket.penilaian/s/getPoinPenilaian', getPoinPenilaian);
-    client.on('api.socket.penilaian/s/getPoinPenilaianSummary', getPoinPenilaianSummary);
-    client.on('api.socket.penilaian/s/onClickKirimPenilaian', onClickKirimPenilaian);
-    client.on('api.socket.penilaian/s/onClickKirimAbsPenilaian', onClickKirimAbsPenilaian);
-    client.on('api.socket.penilaian/s/onClickKirimDailyCutiPenilaian', onClickKirimDailyCutiPenilaian);
-    client.on('api.socket.penilaian/s/onClickSimpanKegBaru', onClickSimpanKegBaru);
+    client.on('api.socket.penilaian/s/getSemuaOrganik', (query,cb)=>getSemuaOrganik(query,cb,client));
+    client.on('api.socket.penilaian/s/getPoinPenilaian', (query,cb)=>getPoinPenilaian(query,cb,client));
+    client.on('api.socket.penilaian/s/getPoinPenilaianSummary', (query,cb)=>getPoinPenilaianSummary(query,cb,client));
+    client.on('api.socket.penilaian/s/onClickKirimPenilaian', (query,cb)=>onClickKirimPenilaian(query,cb,client));
+    client.on('api.socket.penilaian/s/onClickKirimAbsPenilaian', (query,cb)=>onClickKirimAbsPenilaian(query,cb,client));
+    client.on('api.socket.penilaian/s/onClickKirimDailyCutiPenilaian', (query,cb)=>onClickKirimDailyCutiPenilaian(query,cb,client));
+    client.on('api.socket.penilaian/s/onClickSimpanKegBaru', (query,cb)=>onClickSimpanKegBaru(query,cb,client));
+    client.on('api.socket.penilaian/s/onClickKirimPenilaianTambahan', (query,cb)=>onClickKirimPenilaianTambahan(query,cb,client));
+    client.on('api.socket.penilaian/s/setApproved', (query,cb)=>setApproved(query,cb,client));
 }
 
 module.exports = applyToClient

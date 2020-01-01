@@ -1,4 +1,4 @@
-import { Drawer, Row, Col, Button, Collapse, Popconfirm } from 'antd';
+import { Drawer, Row, Col, Button, Collapse, Popconfirm, Icon } from 'antd';
 import moment from 'moment';
 const { Panel } = Collapse;
 
@@ -7,6 +7,16 @@ const DrawerKegBaru = dynamic(() => import("./Penilaian.tambahan.drawer.children
 
 const genTitle = (title, key, stateKey) => (
     <span>{key === stateKey ? <strong>{title}</strong> : title}</span>
+);
+
+const genExtra = () => (
+    <Icon
+        type="setting"
+        onClick={event => {
+            // If you don't want click extra trigger collapse, you can prevent this:
+            event.stopPropagation();
+        }}
+    />
 );
 
 export default class TambahanDrawer extends React.Component {
@@ -30,14 +40,17 @@ export default class TambahanDrawer extends React.Component {
             this.props.showErrorMessage("Mohon lengkapi semua isian.")
             return;
         }
-        const { socket, seksi, month } = this.props;
+        const { socket, seksi, month, tahun_anggaran } = this.props;
         socket.emit(
             'api.socket.penilaian/s/onClickSimpanKegBaru',
             { baru_nama_keg, baru_petugas, baru_bulan_penilaian, seksi },
             (response) => {
                 if (response.type === 200) {
+                    this.props.getOrganik(month, seksi, tahun_anggaran)
                     this.props.showSuccessMessage("Berhasil ditambahkan.")
-                    this.props.getOrganik(month, seksi)
+                    this.setState({
+                        baru_nama_keg: undefined, baru_petugas: [], baru_bulan_penilaian: [], edit_new_drawerVisible: false
+                    })
                 } else {
                     this.props.showErrorMessage("Terjadi error.")
                 }
@@ -67,7 +80,10 @@ export default class TambahanDrawer extends React.Component {
                         onChange={(activeKey) => this.setState({ activeKey })}
                         expandIconPosition={"left"}
                     >
-                        {semua_tambahan_kegiatan.length ? semua_tambahan_kegiatan.map((t_g, i) => <Panel header={genTitle(t_g.title, t_g.title, activeKey)} key={t_g.title}
+                        {semua_tambahan_kegiatan.length ? semua_tambahan_kegiatan.map((t_g, i) => <Panel
+                            header={genTitle(t_g.title, t_g.title, activeKey)}
+                            key={t_g.title}
+                            extra={genExtra()}
                         >
                             Petugas: {t_g.data.map(organik => <div>{organik.nama}</div>)}
                             <Button size="large" icon="edit" />

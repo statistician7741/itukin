@@ -40,6 +40,10 @@ var OrganikSchema = new Schema({
             type: Boolean,
             default: false
         },
+        absensi_approved: {
+            type: Boolean,
+            default: false
+        },
         tl1: {
             type: Number,
             default: 0
@@ -63,6 +67,10 @@ var OrganikSchema = new Schema({
             type: Boolean,
             default: false
         },
+        absensi_approved: {
+            type: Boolean,
+            default: false
+        },
         psw1: {
             type: Number,
             default: 0
@@ -83,6 +91,10 @@ var OrganikSchema = new Schema({
     "daily_cuti": [{
         _id: String,
         d_c_committed: {
+            type: Boolean,
+            default: false,
+        },
+        d_c_approved: {
             type: Boolean,
             default: false,
         },
@@ -118,6 +130,10 @@ var OrganikSchema = new Schema({
             default: 'Tata Usaha'
         },
         nama_keg: String,
+        kinerja_approved: {
+            type: Boolean,
+            default: false
+        },
         kinerja_committed: {
             type: Boolean,
             default: false

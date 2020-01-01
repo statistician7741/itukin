@@ -20,7 +20,8 @@ export default (response, props, seksi, cb) => {
                             realisasi: spd.realisasi,
                             kinerja: spd.kinerja,
                             progress: spd.progress,
-                            kinerja_committed: spd.kinerja_committed
+                            kinerja_committed: spd.kinerja_committed,
+                            kinerja_approved: spd.kinerja_approved
                         }))
                     })
                 }

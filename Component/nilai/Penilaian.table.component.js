@@ -7,6 +7,7 @@ moment.locale("id")
 import { getDateRange, getNomorSPD, setTujuanInput } from '../../functions/clientServerValid.function'
 
 const detailKegiatan = (record, index, indent, expanded) => {
+    console.log(record);
     return <div>
         <div style={{ marginBottom: 5 }}>
             <Tag color="#108ee9">{getNomorSPD(record)}</Tag>

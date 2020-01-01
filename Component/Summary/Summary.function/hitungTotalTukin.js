@@ -1,8 +1,8 @@
 import hitungKinerja from "./hitungKinerja";
 import hitungTLPSW from "./hitungTLPSW";
 
-export default (row, semua_kegiatan, nilai_seksi, isRounded) => {
-    let persenKinerja = hitungKinerja(row, semua_kegiatan); //misal 80%
+export default (row, semua_kegiatan, nilai_seksi, isRounded, tahun_anggaran, month) => {
+    let persenKinerja = hitungKinerja(row, semua_kegiatan, undefined, tahun_anggaran, month); //misal 80%
     if (persenKinerja === '-') {
         return persenKinerja
     } else {
@@ -13,15 +13,13 @@ export default (row, semua_kegiatan, nilai_seksi, isRounded) => {
                         'Produksi' : (row.nmjab.match(/distribusi/i) ?
                             'Distribusi' : (row.nmjab.match(/nerwilis|neraca/i) ?
                                 'Nerwilis' : 'IPDS'))));
-            // try {
-            //     if (!nilai_seksi[indexSeksi]) throw '-';
-            // } catch (error) {
-            //     return error;
-            // }
             persenKinerja = (+persenKinerja + (nilai_seksi[indexSeksi]?nilai_seksi[indexSeksi]:100) ) / 2;
         }
     }
-    const persenTLPSW = hitungTLPSW(row.tl, row.psw) < 2 ? 100 : 99 //misal 99%
+    const jumlahTLPSW = hitungTLPSW(row.tl, row.psw)
+    let persenTLPSW = 100;
+    if(jumlahTLPSW === '-') return '-'
+        else persenTLPSW = hitungTLPSW(row.tl, row.psw) < 2 ? 100 : 99 //misal 99%
     const persenPengurangDaily = (row.daily_cuti.daily * .05)
     const total = (persenTLPSW < +persenKinerja ? persenTLPSW : +persenKinerja) - persenPengurangDaily;
     if (total === 100) return total;

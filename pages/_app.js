@@ -8,7 +8,7 @@ import React from 'react'
 import { setSocket } from '../redux/actions/socket.action'
 import withRedux from "next-redux-wrapper";
 
-// import { setActiveUser } from "../redux/actions/organik.action"
+import { setActiveUser } from "../redux/actions/organik.action"
 
 import { kab } from "../config/env.config.js"
 
@@ -82,7 +82,7 @@ class MyApp extends App {
     if (!this.props.store.getState().socket.socket) {
       const socket = io.connect(`http://${window.location.hostname}:81`, { secure: false });
       this.props.store.dispatch(setSocket(socket))
-      // this.props.store.dispatch(setActiveUser(socket))
+      this.props.store.dispatch(setActiveUser(socket))
       socket.on('disconnect', this.handleOnDisconnect)
       socket.on('connect', this.handleOnConnect)
       // socket.on('api.login/c/doYouHaveLoginSomewhere', (login_user_id, cb)=>{

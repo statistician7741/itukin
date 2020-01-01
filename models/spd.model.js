@@ -188,6 +188,10 @@ var SPDSchema = new Schema({
         type: Boolean,
         default: false
     },
+    "kinerja_approved": {
+        type: Boolean,
+        default: false
+    },
     "isSudahDibayar": {
         type: Boolean,
         default: false

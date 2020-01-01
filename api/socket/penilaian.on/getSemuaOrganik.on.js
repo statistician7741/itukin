@@ -2,8 +2,9 @@ const moment = require('moment');
 const SPD = require('../../../models/spd.model');
 const Organik = require('../../../models/organik.model');
 
-module.exports = (query, cb) => {
-    const _id = `${query.tahun}_${query.month}`
+module.exports = (query, cb, client) => {
+    const tahun_anggaran = client.handshake.cookies.tahun_anggaran
+    const _id = `${tahun_anggaran}_${query.month}`
     Organik.updateMany({
         'isProv': false,
         '$and': [
@@ -69,19 +70,5 @@ module.exports = (query, cb) => {
                 cb({ type: 200, data: { semua_organik, length: semua_organik.length } });
             }
         })
-        // Organik.find({
-        //     isProv: false,
-        //     $and: [
-        //         { pensiun: false },
-        //         { pindah: false }
-        //     ]
-        // }).sort('nama').exec((e, semua_organik) => {
-        //     if (e) {
-        //         console.log(e);
-        //         cb({ type: 'error', data: "Gagal mengambil data Organik. Mohon hubungi admin." });
-        //     } else {
-        //         cb({ type: 200, data: { semua_organik, length: semua_organik.length } });
-        //     }
-        // })
     })
 }

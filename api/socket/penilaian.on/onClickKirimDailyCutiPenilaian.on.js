@@ -1,6 +1,7 @@
 const Organik = require('../../../models/organik.model');
 
-module.exports = (query, cb) => {
+module.exports = (query, cb, client) => {
+    const tahun_anggaran = client.handshake.cookies.tahun_anggaran
     Organik.findOneAndUpdate({
         '_id': query._id, "daily_cuti._id": query.daily_cuti._id
     }, {

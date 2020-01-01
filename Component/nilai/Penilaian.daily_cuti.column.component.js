@@ -98,8 +98,9 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeDailyCuti) 
     dataIndex: 'daily_cuti',
     key: 'd_c_committed',
     render: (daily_cuti, row) => (row.daily_cuti.d_c_committed ? <Button
+        disabled={row.daily_cuti.d_c_approved}
         size="small"
-        title="Ubah penilaian"
+        title={row.daily_cuti.d_c_approved?"Sudah disetujui Kepala Kantor":"Ubah penilaian"}
         type="default"
         onClick={() => onClickEditPenilaian(row._id)}>Edit</Button>
         : <Button

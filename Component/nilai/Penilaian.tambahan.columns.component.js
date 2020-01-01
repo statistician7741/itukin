@@ -11,14 +11,6 @@ export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian
         render: (text, row) => <strong>{text}</strong>,
     },
     {
-        title: 'Realisasi',
-        dataIndex: 'target',
-        key: 'target',
-        render: (target, row) => <Progress percent={Math.ceil((row.progress ? (row.progress.length ? (row.progress.slice(-1)[0].jumlah) : 0) : 0) / target.jumlah * 100)}
-            strokeColor={`hsl(${(((row.progress ? (row.progress.length ? (row.progress.slice(-1)[0].jumlah) : 0) : 0) / target.jumlah) * 120).toString(10)},100%,50%)`}
-            size="small" />,
-    },
-    {
         title: 'Penilaian Kinerja',
         children: [
             {
@@ -119,10 +111,11 @@ export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian
                 dataIndex: 'kinerja_committed',
                 key: 'kinerja_committed',
                 render: (kinerja_committed, row) => (kinerja_committed ? <Button
+                    disabled={row.kinerja_approved}
                     size="small"
-                    title="Ubah penilaian"
+                    title={row.kinerja_approved?"Sudah disetujui Kepala Kantor":"Ubah penilaian"}
                     type="default"
-                    onClick={() => onClickEditPenilaian(row.key)}>Edit</Button>
+                    onClick={() => onClickEditPenilaian(row.nip, row._id)}>Edit</Button>
                     : <Button
                         disabled={
                             row.kinerja.realisasi < 100 && !row.kinerja.realisasi_c ||
@@ -134,7 +127,7 @@ export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian
                         size="small"
                         title="Kirim penilaian"
                         type="primary"
-                        onClick={() => onClickKirimPenilaian(row.key, row.kinerja)}>Kirim</Button>)
+                        onClick={() => onClickKirimPenilaian(row.nip, row._id, row.kinerja)}>Kirim</Button>)
             },
         ]
     }

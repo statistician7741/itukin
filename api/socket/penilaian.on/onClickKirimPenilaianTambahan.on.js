@@ -1,11 +1,10 @@
 const Organik = require('../../../models/organik.model');
 
-module.exports = (query, cb, client) => {
-    const tahun_anggaran = client.handshake.cookies.tahun_anggaran
+module.exports = ({ _id, id_keg_tamb, kinerja }, cb, client) => {
     Organik.findOneAndUpdate({
-        '_id': query._id, "tl._id": query.tl._id
+        _id, "tambahan_keg._id": id_keg_tamb
     }, {
-        $set: { 'tl.$': {...query.tl, absensi_committed: true}, 'psw.$': {...query.psw, absensi_committed: true} }
+        $set: { 'tambahan_keg.$.kinerja': kinerja, 'tambahan_keg.$.kinerja_committed': true }
     }, (e, r) => {
         if (e) {
             console.log(e);

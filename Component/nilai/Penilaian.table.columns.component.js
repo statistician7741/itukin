@@ -119,8 +119,9 @@ export default (data, onAfterChange, onClickEditPenilaian, onClickKirimPenilaian
                 dataIndex: 'kinerja_committed',
                 key: 'kinerja_committed',
                 render: (kinerja_committed, row) => (kinerja_committed ? <Button
+                    disabled={row.kinerja_approved}
                     size="small"
-                    title="Ubah penilaian"
+                    title={row.kinerja_approved?"Sudah disetujui Kepala Kantor":"Ubah penilaian"}
                     type="default"
                     onClick={() => onClickEditPenilaian(row.key)}>Edit</Button>
                     : <Button

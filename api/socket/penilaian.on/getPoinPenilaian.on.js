@@ -2,9 +2,10 @@ const moment = require('moment');
 const SPD = require('../../../models/spd.model');
 const Kec = require('../../../models/kec.model');
 
-module.exports = (query, cb) => {
-    const awal_bulan = moment().month(query.month).startOf('month')
-    const akhir_bulan = moment().month(query.month).endOf('month')
+module.exports = (query, cb, client) => {
+    const tahun_anggaran = client.handshake.cookies.tahun_anggaran
+    const awal_bulan = moment().year(tahun_anggaran).month(query.month).startOf('month')
+    const akhir_bulan = moment().year(tahun_anggaran).month(query.month).endOf('month')
     const queryDB = {
         "jenis_spd": "biasa", $and: [
             { "yang_bepergian.jab": { $not: /Kepala\sBPS|Kepala Badan Pusat/ } }
