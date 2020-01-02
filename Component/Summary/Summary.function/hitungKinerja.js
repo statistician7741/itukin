@@ -13,7 +13,7 @@ export default (organik, semua_kegiatan, index, tahun_anggaran, month, seksi) =>
                 : semua_kegiatan[organik._id]
 
             if (!semua_kegiatan_new.length) {
-                return (kinerja_tamb_keg ? kinerja_tamb_keg : 100).toFixed(2);
+                return (kinerja_tamb_keg && kinerja_tamb_keg!=='-'? kinerja_tamb_keg : 100).toFixed(2);
             }
             if (index) {
                 if (kinerja_tamb_keg) {
@@ -35,7 +35,7 @@ export default (organik, semua_kegiatan, index, tahun_anggaran, month, seksi) =>
                 if (kinerja_tamb_keg) {
                     return (((semua_kegiatan_new.reduce(
                         (total, spd) => {
-                            if (!spd.kinerja_committed) throw '-'
+                            if (!spd.kinerja_committed || kinerja_tamb_keg === '-') throw '-'
                             return (total + (spd.kinerja ? hitungSkor(spd.kinerja) : 100))
                         }, 0
                     ) / semua_kegiatan_new.length) + kinerja_tamb_keg) / 2).toFixed(2);
