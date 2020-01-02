@@ -82,7 +82,7 @@ function out(req, res) {
   res.clearCookie('pc_id');
   res.clearCookie('jabatan');
   res.clearCookie('seksi');
-  res.clearCookie('organik_id');
+  res.clearCookie('organik_id_');
   res.clearCookie('organik_nama');
   res.clearCookie('tahun_anggaran');
   res.redirect('/login');
