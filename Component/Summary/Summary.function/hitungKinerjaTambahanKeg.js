@@ -21,6 +21,7 @@ export default (organik, index, tahun_anggaran, month, seksi) => {
                                     return total + 0;
                                 }
                             } else {
+                                if (!keg.kinerja_committed) throw '-'
                                 count++;
                                 return (total + (keg.kinerja ? (index ? keg.kinerja[index] : hitungSkor(keg.kinerja)) : (100).toFixed(2)))
                             }
