@@ -108,35 +108,47 @@ export default class Main extends React.Component {
                     </a>
                 </Col>
             </Row>
-            <Row gutter={16}>
+            <Row gutter={16} style={{marginBottom: 10}}>
                 <Col span={4}>
-                    <Card title="Tata Usaha" bordered={false}>
-                        {nilai_seksi["Tata Usaha"].toFixed(2)}
+                    <Card title="Tata Usaha" bordered={true}>
+                        <Typography style={{ textAlign: "center" }}>
+                            <Typography.Title level={4}>{nilai_seksi["Tata Usaha"].toFixed(2)}</Typography.Title>
+                        </Typography>
                     </Card>
                 </Col>
                 <Col span={4}>
-                    <Card title="Sosial" bordered={false}>
-                        {nilai_seksi["Sosial"].toFixed(2)}
+                    <Card title="Sosial" bordered={true}>
+                        <Typography style={{ textAlign: "center" }}>
+                            <Typography.Title level={4}>{nilai_seksi["Sosial"].toFixed(2)}</Typography.Title>
+                        </Typography>
                     </Card>
                 </Col>
                 <Col span={4}>
-                    <Card title="Produksi" bordered={false}>
-                        {nilai_seksi["Produksi"].toFixed(2)}
+                    <Card title="Produksi" bordered={true}>
+                        <Typography style={{ textAlign: "center" }}>
+                            <Typography.Title level={4}>{nilai_seksi["Produksi"].toFixed(2)}</Typography.Title>
+                        </Typography>
                     </Card>
                 </Col>
                 <Col span={4}>
-                    <Card title="Distribusi" bordered={false}>
-                        {nilai_seksi["Distribusi"].toFixed(2)}
+                    <Card title="Distribusi" bordered={true}>
+                        <Typography style={{ textAlign: "center" }}>
+                            <Typography.Title level={4}>{nilai_seksi["Distribusi"].toFixed(2)}</Typography.Title>
+                        </Typography>
                     </Card>
                 </Col>
                 <Col span={4}>
-                    <Card title="Nerwilis" bordered={false}>
-                        {nilai_seksi["Nerwilis"].toFixed(2)}
+                    <Card title="Nerwilis" bordered={true}>
+                        <Typography style={{ textAlign: "center" }}>
+                            <Typography.Title level={4}>{nilai_seksi["Nerwilis"].toFixed(2)}</Typography.Title>
+                        </Typography>
                     </Card>
                 </Col>
                 <Col span={4}>
-                    <Card title="IPDS" bordered={false}>
-                        {nilai_seksi["IPDS"].toFixed(2)}
+                    <Card title="IPDS" bordered={true}>
+                        <Typography style={{ textAlign: "center" }}>
+                            <Typography.Title level={4}>{nilai_seksi["Tata Usaha"].toFixed(2)}</Typography.Title>
+                        </Typography>
                     </Card>
                 </Col>
             </Row>
