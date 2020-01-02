@@ -35,7 +35,7 @@ function loginSuccess(req, res, org) {
   res.cookie('pc_id', pc_id)
   all_client_pc_id[org._id] = pc_id;
   res.cookie('jabatan', org.nmjab)
-  res.cookie('organik_id', org._id)
+  res.cookie('organik_id_', org._id)
   res.cookie('organik_nama', org.nama)
   res.cookie('tahun_anggaran', req.body.tahun_anggaran)
   res.end('200');

@@ -52,19 +52,19 @@ let runServer = () => {
       const all_client_pc_id = require('./all_client_pc_id');
       let login_check = function (req, res, next) {
         if (/^\/login$/.test(req.url)) {
-          if (req.cookies.organik_id) res.redirect('/')
+          if (req.cookies.organik_id_) res.redirect('/')
           else next();
         } else if (/login|static|_next/.test(req.url)) {
           next();
-        } else if (!req.cookies.organik_id) {
+        } else if (!req.cookies.organik_id_) {
           res.redirect('/login')
         } else {
-          if (req.cookies.organik_id && all_client_pc_id[req.cookies.organik_id]) {
-            if (all_client_pc_id[req.cookies.organik_id] !== req.cookies.pc_id) {
+          if (req.cookies.organik_id_ && all_client_pc_id[req.cookies.organik_id_]) {
+            if (all_client_pc_id[req.cookies.organik_id_] !== req.cookies.pc_id) {
               res.clearCookie('pc_id');
               res.clearCookie('jabatan');
               res.clearCookie('seksi');
-              res.clearCookie('organik_id');
+              res.clearCookie('organik_id_');
               res.clearCookie('organik_nama');
               res.clearCookie('tahun_anggaran');
               res.redirect('/login')
