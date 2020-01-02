@@ -1,4 +1,4 @@
-import { Col, Row, Typography, Select, Card, Button } from 'antd';
+import { Col, Row, Typography, Select, Card, Button, Progress, Tooltip, Divider } from 'antd';
 import dynamic from 'next/dynamic';
 import moment from 'moment';
 const TableSummary = dynamic(() => import('./Summary.table.component'))
@@ -8,6 +8,7 @@ import getSemuaOrganik from "../nilai/Penilaian.function/getSemuaOrganik";
 import onClickApprovedResponseHandle from "./Summary.function/onClickApprovedResponseHandle";
 import columns from "./Summary.tabel.columns.component";
 import { Fragment } from 'react';
+import getProgressEntri from './Summary.function/getProgressEntri';
 
 const { Option } = Select;
 
@@ -76,6 +77,9 @@ export default class Main extends React.Component {
         const { semua_organik, semua_kegiatan, month, seksi } = this.state;
         const { tahun_anggaran, nmjab } = this.props.active_user;
         const nilai_seksi = getAllSeksiKinerja(semua_kegiatan, semua_organik, tahun_anggaran, month);
+        const progressEntri = getProgressEntri(
+            semua_kegiatan, semua_organik, seksi, tahun_anggaran, month
+        )
         return <Fragment>
             <Typography style={{ textAlign: "center" }}>
                 <Typography.Title level={4}>REKAPITULASI TUNJANGAN KINERJA (KINERJA, ABSENSI, DAILY) BPS KABUPATEN KOLAKA</Typography.Title>
@@ -108,49 +112,22 @@ export default class Main extends React.Component {
                     </a>
                 </Col>
             </Row>
-            <Row gutter={16} style={{marginBottom: 10}}>
-                <Col span={4}>
-                    <Card title="Tata Usaha" bordered={true}>
-                        <Typography style={{ textAlign: "center" }}>
-                            <Typography.Title level={4}>{nilai_seksi["Tata Usaha"].toFixed(2)}</Typography.Title>
-                        </Typography>
-                    </Card>
-                </Col>
-                <Col span={4}>
-                    <Card title="Sosial" bordered={true}>
-                        <Typography style={{ textAlign: "center" }}>
-                            <Typography.Title level={4}>{nilai_seksi["Sosial"].toFixed(2)}</Typography.Title>
-                        </Typography>
-                    </Card>
-                </Col>
-                <Col span={4}>
-                    <Card title="Produksi" bordered={true}>
-                        <Typography style={{ textAlign: "center" }}>
-                            <Typography.Title level={4}>{nilai_seksi["Produksi"].toFixed(2)}</Typography.Title>
-                        </Typography>
-                    </Card>
-                </Col>
-                <Col span={4}>
-                    <Card title="Distribusi" bordered={true}>
-                        <Typography style={{ textAlign: "center" }}>
-                            <Typography.Title level={4}>{nilai_seksi["Distribusi"].toFixed(2)}</Typography.Title>
-                        </Typography>
-                    </Card>
-                </Col>
-                <Col span={4}>
-                    <Card title="Nerwilis" bordered={true}>
-                        <Typography style={{ textAlign: "center" }}>
-                            <Typography.Title level={4}>{nilai_seksi["Nerwilis"].toFixed(2)}</Typography.Title>
-                        </Typography>
-                    </Card>
-                </Col>
-                <Col span={4}>
-                    <Card title="IPDS" bordered={true}>
-                        <Typography style={{ textAlign: "center" }}>
-                            <Typography.Title level={4}>{nilai_seksi["Tata Usaha"].toFixed(2)}</Typography.Title>
-                        </Typography>
-                    </Card>
-                </Col>
+            <Row gutter={16} style={{ marginBottom: 10 }}>
+                {["Tata Usaha", "Sosial", "Produksi",
+                    "Distribusi", "Nerwilis", "IPDS"].map(seksi => <Col span={4}>
+                        <Card title={seksi} bordered={true}>
+                            Progress entri:
+                            <Tooltip title="Progress entri Tukin">
+                                <Progress percent={progressEntri[seksi]} status={progressEntri[seksi]<100?"active":"success"} />
+                            </Tooltip>
+                            Kinerja:
+                            <Tooltip title="Kinerja seksi">
+                                <Typography style={{ textAlign: "center" }}>
+                                    <Typography.Title level={4}>{nilai_seksi[seksi].toFixed(2)}</Typography.Title>
+                                </Typography>
+                            </Tooltip>
+                        </Card>
+                    </Col>)}
             </Row>
             <Row gutter={24} type="flex">
                 <Col xs={24}>

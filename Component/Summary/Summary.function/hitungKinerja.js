@@ -50,7 +50,7 @@ export default (organik, semua_kegiatan, index, tahun_anggaran, month, seksi) =>
             }
         }
         
-        return (kinerja_tamb_keg !== '-' && kinerja_tamb_keg? kinerja_tamb_keg : 100).toFixed(2);
+        return kinerja_tamb_keg !== '-' && kinerja_tamb_keg? (kinerja_tamb_keg).toFixed(2):'-';
     } catch (error) {
         return error
     }

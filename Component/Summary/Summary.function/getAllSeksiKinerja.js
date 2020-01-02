@@ -2,43 +2,22 @@ import hitungKinerja from "./hitungKinerja";
 import hitungKinerjaTambahanKeg from "./hitungKinerjaTambahanKeg";
 
 export default (semua_kegiatan, semua_organik, tahun_anggaran, month) => {
-    let nilai_seksi = {};
-    for (let organik_nip in semua_kegiatan) {
-        if (semua_kegiatan.hasOwnProperty(organik_nip)) {
-            semua_kegiatan[organik_nip].forEach(spd => {
-                const kinerja = hitungKinerja({ _id: organik_nip }, semua_kegiatan);
-                if(kinerja!=='-'){
-                    if (!nilai_seksi[spd.reserved.seksi]) {
-                        nilai_seksi[spd.reserved.seksi] = { length: 0, sum: 0 }
-                    }
-                    nilai_seksi[spd.reserved.seksi].sum += +kinerja;
-                    nilai_seksi[spd.reserved.seksi].length += 1;
-                }
-            })
-        }
-    }
-    const nilai_seksi_tamb = {}
-    const seksis = ['Tata Usaha', 'Sosial', 'Produksi','Distribusi', 'Nerwilis', 'IPDS']
+    //nilai
+    const nilai_seksi = {}
+    const seksis = ['Tata Usaha', 'Sosial', 'Produksi', 'Distribusi', 'Nerwilis', 'IPDS']
     seksis.forEach(seksi => {
-        if (!nilai_seksi_tamb[seksi]) {
-            nilai_seksi_tamb[seksi] = { length: 0, sum: 0 }
+        if (!nilai_seksi[seksi]) {
+            nilai_seksi[seksi] = { length: 0, sum: 0 }
         }
         semua_organik.forEach(organik => {
-            const org_nilai = hitungKinerjaTambahanKeg(organik, undefined, tahun_anggaran, month, seksi);
-            if (org_nilai !== undefined && org_nilai !== '-') {
-                nilai_seksi_tamb[seksi].sum += org_nilai;
-                nilai_seksi_tamb[seksi].length++;
+            const kinerja = hitungKinerja(organik, semua_kegiatan, undefined, tahun_anggaran, month, seksi);
+            if (kinerja !== undefined && kinerja !== '-') {
+                nilai_seksi[seksi].sum += +kinerja;
+                nilai_seksi[seksi].length++;
             }
         })
+        nilai_seksi[seksi] = nilai_seksi[seksi].sum ? (nilai_seksi[seksi].sum / nilai_seksi[seksi].length) : 100;
     })
-    
-    seksis.forEach(seksi => {
-        if(nilai_seksi[seksi]){
-            nilai_seksi[seksi] = (nilai_seksi[seksi].sum+ (nilai_seksi_tamb[seksi].sum?nilai_seksi_tamb[seksi].sum:0) ) / (nilai_seksi[seksi].length + (nilai_seksi_tamb[seksi].length?nilai_seksi_tamb[seksi].length:0) );
-        } else{
-            nilai_seksi[seksi] = nilai_seksi_tamb[seksi].sum?(nilai_seksi_tamb[seksi].sum / nilai_seksi_tamb[seksi].length):100;
-        }
-    })
-    
+
     return nilai_seksi;
 }
