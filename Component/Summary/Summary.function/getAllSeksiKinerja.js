@@ -25,7 +25,7 @@ export default (semua_kegiatan, semua_organik, tahun_anggaran, month) => {
         }
         semua_organik.forEach(organik => {
             const org_nilai = hitungKinerjaTambahanKeg(organik, undefined, tahun_anggaran, month, seksi);
-            if (org_nilai !== undefined) {
+            if (org_nilai !== undefined && org_nilai !== '-') {
                 nilai_seksi_tamb[seksi].sum += org_nilai;
                 nilai_seksi_tamb[seksi].length++;
             }
