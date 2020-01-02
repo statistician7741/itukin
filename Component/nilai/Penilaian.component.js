@@ -42,7 +42,11 @@ export default class Penilaian extends React.Component {
         });
     };
 
-    showTambahanDrawer =  
+    showTambahanDrawer = () => {
+        this.setState({
+            showTambahanPenilaianDrawer: true,
+        });
+    };
 
     onAfterChange = (index, value, data, currentRow) => {
         const newData = [...data]
