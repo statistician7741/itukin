@@ -142,12 +142,13 @@ export default (semua_kegiatan, semua_organik, nilai_seksi, tahun_anggaran, mont
     render: (kinerja_committed, row) => isKepalaKantor?(isSdhSetujui(row, semua_kegiatan).status ? <Button
         size="small"
         title="Klik untuk membatalkan persetujuan agar bisa diubah"
-        type="default"
+        type="primary"
         onClick={() => onClickApproved(row._id, isSdhSetujui(row, semua_kegiatan).all_spd_id, false)}>Disetujui</Button>
         : (hitungTotalTukin(row, semua_kegiatan, nilai_seksi, true, tahun_anggaran, month)!=='-'?<Button
             size="small"
             title="Klik untuk finalkan Besaran Tunjangan Kinerja"
-            type="primary"
+            type="default"
+            style={{ background: "red", borderColor: "red", color: "white" }}
             onClick={() => onClickApproved(row._id, isSdhSetujui(row, semua_kegiatan).all_spd_id, true)}>Setujui</Button>:'-')):(
                 !isSdhSetujui(row, semua_kegiatan).status?<Tag color="#f50">Belum disetujui</Tag>:
                 <Tag color="#87d068">Disetujui</Tag>
