@@ -7,7 +7,7 @@ import hitungKinerja from "./Summary.function/hitungKinerja"
 const detailPenilaian = (record, index, indent, expanded, semua_kegiatan, tahun_anggaran, month) => {
     return <Fragment>
         <Row>
-            <Col xs={24}><strong>Detail Penilaian Kinerja (Perjalanan Dinas)</strong></Col>
+            <Col xs={24}><strong>Detail Penilaian Kinerja (Perjalanan Dinas dan Kegiatan)</strong></Col>
         </Row>
         {['Tata Usaha', 'Sosial', 'Produksi', 'Distribusi', 'Nerwilis', 'IPDS'].map(seksi => (
             <Row>
