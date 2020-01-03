@@ -42,7 +42,7 @@ class Login extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (err) return
-            values.username= values.username.toLowerCase()
+            values.username = values.username.toLowerCase()
             this.setState({ loading: true, errMsg: undefined }, () => {
                 axios.post('/api/login', values)
                     .then((response) => {
@@ -79,7 +79,7 @@ class Login extends React.Component {
                                 </div>
                             </Link>
                         </div>
-                        <div className={'login_desc'}>iTukin, Menuju WBK, WBBM</div>
+                        <div className={'login_desc'}>iTukin, Menuju Wilayah Bebas Korupsi (WBK), Wilayah Birokrasi Bersih Melayani (WBBM)</div>
                     </div>
                     <div className={'login_main'}>
                         {errMsg ? (
@@ -93,6 +93,27 @@ class Login extends React.Component {
                             />
                         ) : null}
                         <Form onSubmit={this.handleSubmit} className="login-form">
+                            <FormItem>
+                                {getFieldDecorator("tahun_anggaran", {
+                                    rules: [
+                                        { required: true, message: "Mohon pilih tahun anggaran." }
+                                    ],
+                                    initialValue: new Date().getFullYear()
+                                })(
+                                    <Select
+                                        prefix={
+                                            <Icon type="calendar" style={{ color: "rgba(0,0,0,.25)" }} />
+                                        }
+                                        type="string"
+                                        placeholder="Tahun Anggaran"
+                                        size='large'
+                                        autoComplete="off"
+                                        disabled={loading}
+                                    >
+                                        {tahun_anggaran.map((a, i) => <Option key={i} value={a}><strong>TAHUN ANGGARAN {a}</strong></Option>)}
+                                    </Select>
+                                )}
+                            </FormItem>
                             <FormItem>
                                 {getFieldDecorator("username", {
                                     rules: [
@@ -128,27 +149,6 @@ class Login extends React.Component {
                                         autoComplete="off"
                                         disabled={loading}
                                     />
-                                )}
-                            </FormItem>
-                            <FormItem>
-                                {getFieldDecorator("tahun_anggaran", {
-                                    rules: [
-                                        { required: true, message: "Mohon pilih tahun anggaran." }
-                                    ],
-                                    initialValue: new Date().getFullYear()
-                                })(
-                                    <Select
-                                        prefix={
-                                            <Icon type="calendar" style={{ color: "rgba(0,0,0,.25)" }} />
-                                        }
-                                        type="string"
-                                        placeholder="Tahun Anggaran"
-                                        size='large'
-                                        autoComplete="off"
-                                        disabled={loading}
-                                    >
-                                        {tahun_anggaran.map((a, i) => <Option key={i} value={a}>{a}</Option>)}
-                                    </Select>
                                 )}
                             </FormItem>
                             <FormItem>
