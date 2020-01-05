@@ -7,6 +7,7 @@ function hitungSkor(kinerja) {
 export default (organik, semua_kegiatan, index, tahun_anggaran, month, seksi) => {
     try {
         let kinerja_tamb_keg = hitungKinerjaTambahanKeg(organik, index, tahun_anggaran, month, seksi)
+        if (index && organik.nama === 'Muh. Shamad, SST') console.log(kinerja_tamb_keg);
         if (semua_kegiatan[organik._id]) {
             let semua_kegiatan_new = seksi ?
                 [...semua_kegiatan[organik._id].filter(spd => spd.reserved.seksi === seksi)]
@@ -16,7 +17,7 @@ export default (organik, semua_kegiatan, index, tahun_anggaran, month, seksi) =>
                 return (kinerja_tamb_keg && kinerja_tamb_keg!=='-'? kinerja_tamb_keg : 100).toFixed(2);
             }
             if (index) {
-                if (kinerja_tamb_keg) {
+                if (kinerja_tamb_keg && kinerja_tamb_keg!=='-') {
                     return (((semua_kegiatan_new.reduce(
                         (total, spd) => {
                             if (!spd.kinerja_committed) throw '-'

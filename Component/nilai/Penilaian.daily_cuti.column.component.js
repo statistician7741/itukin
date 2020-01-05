@@ -16,7 +16,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeDailyCuti) 
         render: (value, row) => <InputNumber
             disabled={row.daily_cuti.d_c_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
             min={0}
             max={23}
             value={value}
@@ -38,7 +38,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeDailyCuti) 
         render: (value, row) => <InputNumber
             disabled={row.daily_cuti.d_c_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
             min={0}
             max={23}
             value={value}
@@ -51,7 +51,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeDailyCuti) 
         render: (value, row) => <InputNumber
             disabled={row.daily_cuti.d_c_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
             min={0}
             max={23}
             value={value}
@@ -64,7 +64,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeDailyCuti) 
         render: (value, row) => <InputNumber
             disabled={row.daily_cuti.d_c_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
             min={0}
             max={23}
             value={value}
@@ -77,7 +77,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeDailyCuti) 
         render: (value, row) => <InputNumber
             disabled={row.daily_cuti.d_c_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
             min={0}
             max={23}
             value={value}
@@ -90,7 +90,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeDailyCuti) 
         render: (value, row) => <InputNumber
             disabled={row.daily_cuti.d_c_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
             min={0}
             max={23}
             value={value}

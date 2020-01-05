@@ -78,7 +78,7 @@ export default class Main extends React.Component {
         const { tahun_anggaran, nmjab } = this.props.active_user;
         const nilai_seksi = getAllSeksiKinerja(semua_kegiatan, semua_organik, tahun_anggaran, month);
         const progressEntri = getProgressEntri(
-            semua_kegiatan, semua_organik, seksi, tahun_anggaran, month
+            semua_kegiatan, semua_organik, tahun_anggaran, month
         )
         return <Fragment>
             <Typography style={{ textAlign: "center" }}>

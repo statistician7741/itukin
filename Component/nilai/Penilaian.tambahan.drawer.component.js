@@ -83,10 +83,14 @@ export default class TambahanDrawer extends React.Component {
             const id_yg_nambah = baru_petugas.filter(bo=>{
                 return _.find(baru_petugas_editing_target, ['key', bo.key])?false:true
             })
-            // console.log(baru_petugas_editing_target.map(o=>o.nama), baru_petugas.map(o=>o.label));
-            console.log(id_yg_hilang, id_yg_nambah);
-            // console.log(id_yg_hilang, id_yg_nambah);
             //2. cek bulan, jika ada yg hilang, hapus bulan yang hilang
+            const bulan_yg_hilang = baru_bulan_penilaian_editing_target.filter(b=>{
+                return _.indexOf(baru_bulan_penilaian, b) > -1?false:true
+            })
+            const bulan_yg_nambah = baru_bulan_penilaian.filter(b=>{
+                return _.indexOf(baru_bulan_penilaian_editing_target, b) > -1?false:true
+            })
+            console.log(bulan_yg_hilang, bulan_yg_nambah);
             //3. cek nama keg, jika berubah, update ke nama
             this.props.showErrorMessage("Maaf, fitur ini sedang dalam pengembangan.")
             return;
