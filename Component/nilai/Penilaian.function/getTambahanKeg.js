@@ -6,6 +6,7 @@ export default (month, seksi, semua_organik, tahun_anggaran) => {
                 if (organik.tambahan_keg.length) { //cek jika ada anggotanya
                     //proses pemngambilan keg
                     organik.tambahan_keg.forEach(keg => {
+                        //filter bulan
                         if (keg._id.includes(`${tahun_anggaran}_${month}`) && keg.seksi === seksi) {
                             if (!semua_tambahan_kegiatan_temp[keg.nama_keg]) {
                                 semua_tambahan_kegiatan_temp[keg.nama_keg] = {};
@@ -22,6 +23,7 @@ export default (month, seksi, semua_organik, tahun_anggaran) => {
                 }
             }
         })
+        //to Array
         let semua_tambahan_kegiatan = [];
         for (let kegiatan in semua_tambahan_kegiatan_temp) {
             if (semua_tambahan_kegiatan_temp.hasOwnProperty(kegiatan)) {

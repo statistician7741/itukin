@@ -1,4 +1,4 @@
-import { Drawer, Col, Row, Input, Checkbox, Button, Icon, Select } from 'antd';
+import { Drawer, Col, Row, Input, Checkbox, Button, Icon, Select, Popconfirm } from 'antd';
 const CheckboxGroup = Checkbox.Group;
 const Option = Select.Option;
 
@@ -17,7 +17,9 @@ export default class DrawerChildren extends React.Component {
             onChangeBaruNamaKeg,
             onChangeBaruPetugas,
             onChangeBaruBulan,
-            onClickSimpanKegBaru } = this.props;
+            onClickSimpanKegBaru,
+            baru_nama_keg_editing_target,
+            onClickDelete } = this.props;
         return <Drawer
             title={title}
             width={600}
@@ -98,6 +100,14 @@ export default class DrawerChildren extends React.Component {
                 }}
             >
                 <Button size="large" style={{ marginRight: 8 }} onClick={onClose}>Batal</Button>
+                <Popconfirm
+                    title="Apakah Anda yakin akan menghapus kegiatan ini di semua bulan terpilih?"
+                    onConfirm={onClickDelete}
+                    okText="Ya"
+                    cancelText="Tidak"
+                >
+                    <Button disabled={baru_nama_keg_editing_target ? false : true} size="large" type="danger" style={{ marginRight: 8 }}>Hapus</Button>
+                </Popconfirm>
                 <Button size="large" onClick={onClickSimpanKegBaru} type="primary">Simpan</Button>
             </div>
         </Drawer>
