@@ -51,7 +51,7 @@ export default (organik, semua_kegiatan, index, tahun_anggaran, month, seksi) =>
             }
         }
 
-        if(kinerja_tamb_keg === undefined && !semua_kegiatan[organik._id]) return 100
+        if(kinerja_tamb_keg === undefined && !semua_kegiatan[organik._id]) return (100).toFixed(2)
         
         return kinerja_tamb_keg !== '-' && kinerja_tamb_keg? (kinerja_tamb_keg).toFixed(2):'-';
     } catch (error) {
