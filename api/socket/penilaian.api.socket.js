@@ -9,6 +9,7 @@ const onClickKirimPenilaianTambahan = require('./penilaian.on/onClickKirimPenila
 const setApproved = require('./penilaian.on/setApproved.on');
 const deleteKegTambahan = require('./penilaian.on/deleteKegTambahan.on');
 const editKegTambahan = require('./penilaian.on/editKegTambahan.on');
+const downloadSummary = require('./penilaian.on/downloadSummary.on');
 
 function applyToClient(client) {
     client.on('api.socket.penilaian/s/getSemuaOrganik', (query,cb)=>getSemuaOrganik(query,cb,client));
@@ -22,6 +23,7 @@ function applyToClient(client) {
     client.on('api.socket.penilaian/s/setApproved', (query,cb)=>setApproved(query,cb,client));
     client.on('api.socket.penilaian/s/deleteKegTambahan', (query,cb)=>deleteKegTambahan(query,cb,client));
     client.on('api.socket.penilaian/s/editKegTambahan', (query,cb)=>editKegTambahan(query,cb,client));
+    client.on('api.socket.penilaian/s/downloadSummary', (query,cb)=>downloadSummary(query,cb,client));
 }
 
 module.exports = applyToClient
