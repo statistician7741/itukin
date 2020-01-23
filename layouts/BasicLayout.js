@@ -14,15 +14,25 @@ import "./BasicLayout.less"
 
 
 class BasicLayout extends React.Component {
-//   toggle = () => {
-//     const { toggleSideMenuCollapsed } = this.props
-//     toggleSideMenuCollapsed(!this.props.sideMenuCollapsed)
-//   };
+  //   toggle = () => {
+  //     const { toggleSideMenuCollapsed } = this.props
+  //     toggleSideMenuCollapsed(!this.props.sideMenuCollapsed)
+  //   };
 
   render() {
     const { active_user, isMobile } = this.props
     const menu = (
       <Menu className={'menu'} selectedKeys={[]}>
+        <Menu.Item key="userCenter">
+          <a href='/'>
+            <div><Icon type="control" /> Penilaian</div>
+          </a>
+        </Menu.Item>
+        <Menu.Item key="userCenter">
+          <a href='/summary'>
+            <div><Icon type="dashboard" /> Hasil Penilaian</div>
+          </a>
+        </Menu.Item>
         <Menu.Item key="userCenter">
           <Link href='/api/login/out'>
             <div><Icon type="logout" /> Logout</div>
@@ -34,15 +44,15 @@ class BasicLayout extends React.Component {
       <Layout style={{ minHeight: '100vh' }}>
         <Layout>
           <Header style={{ background: "#fff", padding: 0, textAlign: "center" }}>
-            <span style={{float: "left", paddingLeft: 25}}><Link href="/"><a><img className="logo" src={`/static/logo1.png`} /></a></Link></span>
-            <span>{active_user.tahun_anggaran?<span><Tag color="#1DA57A">T.A. {active_user.tahun_anggaran}</Tag> <Tag color="#1DA57A">{active_user.seksi}</Tag></span>:<Icon type='loading'/>}</span>
+            <span style={{ float: "left", paddingLeft: 25 }}><Link href="/"><a><img className="logo" src={`/static/logo1.png`} /></a></Link></span>
+            <span>{active_user.tahun_anggaran ? <span><Tag color="#1DA57A">T.A. {active_user.tahun_anggaran}</Tag> <Tag color="#1DA57A">{active_user.seksi}</Tag></span> : <Icon type='loading' />}</span>
             <span className="right">
               <Dropdown overlay={menu}>
                 <span className={`action account`}>
                   <Avatar
                     className={'avatar'}
-                  >{active_user.nama?active_user.nama[0]:<Icon type='loading'/>}</Avatar>
-                  {isMobile === undefined || isMobile === false?<span className={'name'}>{active_user.nama?active_user.nama:<Icon type='loading'/>}</span>:null}
+                  >{active_user.nama ? active_user.nama[0] : <Icon type='loading' />}</Avatar>
+                  {isMobile === undefined || isMobile === false ? <span className={'name'}>{active_user.nama ? active_user.nama : <Icon type='loading' />}</span> : null}
                 </span>
               </Dropdown>
             </span>
