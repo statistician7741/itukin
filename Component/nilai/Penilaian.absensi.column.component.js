@@ -4,6 +4,8 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
     title: 'Nama',
     dataIndex: 'nama',
     key: 'name',
+    fixed: 'left',
+    width: 200,
     render: text => <strong>{text}</strong>,
 }, {
     title: 'TL',
@@ -192,6 +194,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
     width: 64,
     dataIndex: 'absensi_committed',
     key: 'absensi_committed',
+    fixed: 'right',
     render: (absensi_committed, row) => (row.tl.absensi_committed ? <Button
         disabled={row.tl.absensi_approved}
         size="small"
