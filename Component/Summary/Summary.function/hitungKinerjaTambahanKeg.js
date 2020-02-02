@@ -10,7 +10,7 @@ export default (organik, index, tahun_anggaran, month, seksi) => {
                 let count = 0;
                 let sum = organik.tambahan_keg.reduce(
                     (total, keg) => {
-                        if (keg._id.includes(`${tahun_anggaran}_${month}`)) {
+                        if (keg._id.includes(`${tahun_anggaran}_${month}_`)) {
                             // if (!keg.kinerja_committed) throw '-'
                             if (seksi) {
                                 if (keg.seksi === seksi) {

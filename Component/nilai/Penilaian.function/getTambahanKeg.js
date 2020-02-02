@@ -7,7 +7,7 @@ export default (month, seksi, semua_organik, tahun_anggaran) => {
                     //proses pemngambilan keg
                     organik.tambahan_keg.forEach(keg => {
                         //filter bulan
-                        if (keg._id.includes(`${tahun_anggaran}_${month}`) && keg.seksi === seksi) {
+                        if (keg._id.includes(`${tahun_anggaran}_${month}_`) && keg.seksi === seksi) {
                             if (!semua_tambahan_kegiatan_temp[keg.nama_keg]) {
                                 semua_tambahan_kegiatan_temp[keg.nama_keg] = {};
                                 semua_tambahan_kegiatan_temp[keg.nama_keg].data = [];

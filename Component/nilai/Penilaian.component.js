@@ -251,6 +251,7 @@ export default class Penilaian extends React.Component {
         const { activeKey, seksi, month, semua_kegiatan, semua_organik, showTambahanPenilaianDrawer } = this.state;
         const { active_user } = this.props;
         const semua_tambahan_kegiatan = getTambahanKeg(month, seksi, semua_organik, active_user.tahun_anggaran);
+        console.log(semua_tambahan_kegiatan);
         return (
             <React.Fragment>
                 <Row style={{ marginBottom: 7 }} gutter={[3, 0]} type="flex" align="middle">

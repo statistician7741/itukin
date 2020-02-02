@@ -18,7 +18,7 @@ export default (response, state, nip, isApproved, props, cb) => {
                         'tambahan_keg': organik.tambahan_keg?(
                             organik.tambahan_keg.length?organik.tambahan_keg.map(keg_tamb=>{
                                 if(keg_tamb._id){
-                                    if(keg_tamb._id.includes(`${props.active_user.tahun_anggaran}_${state.month}`)){
+                                    if(keg_tamb._id.includes(`${props.active_user.tahun_anggaran}_${state.month}_`)){
                                         return {
                                             ...keg_tamb,
                                             'kinerja_approved': isApproved
