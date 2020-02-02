@@ -67,7 +67,10 @@ export default class Main extends React.Component {
                 let { month } = this.state;
                 if (+tahun_anggaran < moment().year()) {
                     month = 11;
-                    this.setState({ month: 11 })
+                    this.setState({ month })
+                } else if( moment().date() < 10 ){
+                    month = moment().month() - 1;
+                    this.setState({ month })
                 }
                 this.getOrganik(month, () => this.getKegiatan(month, seksi));
             }, 100)
