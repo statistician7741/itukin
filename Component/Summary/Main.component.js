@@ -17,7 +17,8 @@ export default class Main extends React.Component {
         semua_kegiatan: [],
         semua_organik: [],
         seksi: "Semua Seksi",
-        month: moment().month()
+        month: moment().month(),
+        downloadLoadingButton: false
     }
 
     getKegiatan = (month, seksi) => {
@@ -57,7 +58,20 @@ export default class Main extends React.Component {
             }
         )
     }
-
+    onClickDownload = (month, semua_kegiatan, semua_organik, nilai_seksi) => {
+        this.setState({
+            downloadLoadingButton: true
+        }, () => {
+            this.props.socket.emit(
+                'api.socket.penilaian/s/downloadSummary',
+                { month, semua_kegiatan, semua_organik, nilai_seksi },
+                (response) => {
+                    window.open(response.data, "_top");
+                    this.setState({downloadLoadingButton: false})
+                }
+            )
+        })
+    }
 
     UNSAFE_componentWillReceiveProps = (prevProps) => {
         const { seksi, tahun_anggaran } = prevProps.active_user;
@@ -68,7 +82,7 @@ export default class Main extends React.Component {
                 if (+tahun_anggaran < moment().year()) {
                     month = 11;
                     this.setState({ month })
-                } else if( moment().date() < 10 ){
+                } else if (moment().date() < 10) {
                     month = moment().month() - 1;
                     this.setState({ month })
                 }
@@ -77,7 +91,7 @@ export default class Main extends React.Component {
         }
     }
     render() {
-        const { semua_organik, semua_kegiatan, month, seksi } = this.state;
+        const { semua_organik, semua_kegiatan, month, seksi, downloadLoadingButton } = this.state;
         const { tahun_anggaran, nmjab } = this.props.active_user;
         const nilai_seksi = getAllSeksiKinerja(semua_kegiatan, semua_organik, tahun_anggaran, month);
         const progressEntri = getProgressEntri(
@@ -121,7 +135,7 @@ export default class Main extends React.Component {
                         <Card title={seksi} bordered={true}>
                             Progress entri:
                             <Tooltip title="Progress entri Tukin">
-                                <Progress percent={progressEntri[seksi]} status={progressEntri[seksi]<100?"active":"success"} />
+                                <Progress percent={progressEntri[seksi]} status={progressEntri[seksi] < 100 ? "active" : "success"} />
                             </Tooltip>
                             Kinerja:
                             <Tooltip title="Kinerja seksi">
@@ -148,6 +162,11 @@ export default class Main extends React.Component {
                         tahun_anggaran={tahun_anggaran}
                         month={month}
                         semua_kegiatan={semua_kegiatan} />
+                </Col>
+            </Row>
+            <Row gutter={24} type="flex" style={{ marginTop: 5 }}>
+                <Col xs={4}>
+                    <Button type="primary" onClick={()=>this.onClickDownload(month, semua_kegiatan, semua_organik, nilai_seksi)} loading={downloadLoadingButton}>Download Summary</Button>
                 </Col>
             </Row>
         </Fragment>

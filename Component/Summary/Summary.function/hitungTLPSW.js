@@ -1,1 +1,1 @@
-export default (tl,psw)=>tl?( tl.absensi_committed?(tl.tl1+tl.tl2+tl.tl3+tl.tl4+psw.psw1+psw.psw2+psw.psw3+psw.psw4):'-' ):'-';
+module.exports = (tl,psw)=>tl?( tl.absensi_committed?(tl.tl1+tl.tl2+tl.tl3+tl.tl4+psw.psw1+psw.psw2+psw.psw3+psw.psw4):'-' ):'-';

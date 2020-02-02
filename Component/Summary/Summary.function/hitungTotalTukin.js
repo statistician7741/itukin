@@ -1,7 +1,7 @@
-import hitungKinerja from "./hitungKinerja";
-import hitungTLPSW from "./hitungTLPSW";
+const hitungKinerja = require("./hitungKinerja");
+const hitungTLPSW = require("./hitungTLPSW");
 
-export default (organik, semua_kegiatan, nilai_seksi, isRounded, tahun_anggaran, month) => {
+module.exports = (organik, semua_kegiatan, nilai_seksi, isRounded, tahun_anggaran, month) => {
     let persenKinerja = hitungKinerja(organik, semua_kegiatan, undefined, tahun_anggaran, month); //misal 80%
     if (persenKinerja === '-') {
         return '-'

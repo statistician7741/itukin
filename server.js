@@ -86,6 +86,30 @@ let runServer = () => {
       serve.listen(port, (err) => {
         if (err) throw err
         console.log(`> Ready on https://localhost:${port}`)
+        // const Organik = require('./models/organik.model');
+        // Organik.updateMany({
+        //   "tl._id": '2020_0'
+        // }, {
+        //   $set: { 'tl.$': {
+        //     "absensi_committed" : false,
+        //     "absensi_approved" : false,
+        //     "tl1" : 0,
+        //     "tl2" : 0,
+        //     "tl3" : 0,
+        //     "tl4" : 0,
+        //     "_id": '2020_0'
+        // }, 'psw.$': {
+        //     "absensi_committed" : false,
+        //     "absensi_approved" : false,
+        //     "psw1" : 0,
+        //     "psw2" : 0,
+        //     "psw3" : 0,
+        //     "psw4" : 0,
+        //     "_id": '2020_0'
+        // } }
+        // }, (e, r) => {
+        //   console.log(e,r);
+        // })
       })
       //https
       var httpsServer = https.createServer(credentials, server);

@@ -2,7 +2,7 @@ function hitungSkor(kinerja) {
     const a = .3 * kinerja.realisasi + .25 * kinerja.ketepatan + .2 * kinerja.kualitas + .15 * kinerja.kesungguhan + .1 * kinerja.administrasi;
     return +a
 }
-export default (organik, index, tahun_anggaran, month, seksi) => {
+module.exports = (organik, index, tahun_anggaran, month, seksi) => {
     try {
         let kinerja_tamb_keg = 0;
         if (organik.tambahan_keg) {
