@@ -237,7 +237,10 @@ export default class Penilaian extends React.Component {
                         let { month } = this.state;
                         if (+tahun_anggaran < moment().year()) {
                             month = 11;
-                            this.setState({ month: 11 })
+                            this.setState({ month })
+                        } else if( moment().date() < 10 ){
+                            month = moment().month() - 1;
+                            this.setState({ month })
                         }
                         this.getKegiatan(month, seksi ? (seksi.match(/Kepala\sBPS\sKab/i) ? "Tata Usaha" : seksi) : seksi);
                         this.getOrganik(month, seksi ? (seksi.match(/Kepala\sBPS\sKab/i) ? "Tata Usaha" : seksi) : seksi, tahun_anggaran);
