@@ -1,6 +1,6 @@
 import { Button, InputNumber } from 'antd';
 
-export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi) => [{
+export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, onChangeDailyCuti) => [{
     title: 'Nama',
     dataIndex: 'nama',
     key: 'name',
@@ -117,6 +117,75 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi) =>
             defaultValue={0}
             onChange={(value)=>onChangeAbsensi('psw', 'psw4', value, row)} />,
     }]
+}, {
+    title: 'Cuti',
+    dataIndex: 'cuti',
+    children: [{
+        title: 'CB',
+        dataIndex: 'daily_cuti.cb',
+        key: 'cb',
+        render: (value, row) => <InputNumber
+            disabled={row.tl.absensi_committed}
+            size="large"
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            min={0}
+            max={23}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'cb', value, row)} />,
+    },{
+        title: 'CP',
+        dataIndex: 'daily_cuti.cp',
+        key: 'cp',
+        render: (value, row) => <InputNumber
+            disabled={row.tl.absensi_committed}
+            size="large"
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            min={0}
+            max={23}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'cp', value, row)} />,
+    },{
+        title: 'CM',
+        dataIndex: 'daily_cuti.cm',
+        key: 'cm',
+        render: (value, row) => <InputNumber
+            disabled={row.tl.absensi_committed}
+            size="large"
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            min={0}
+            max={23}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'cm', value, row)} />,
+    },{
+        title: 'CS',
+        dataIndex: 'daily_cuti.cs',
+        key: 'cs',
+        render: (value, row) => <InputNumber
+            disabled={row.tl.absensi_committed}
+            size="large"
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            min={0}
+            max={23}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'cs', value, row)} />,
+    },{
+        title: 'CT',
+        dataIndex: 'daily_cuti.ct',
+        key: 'ct',
+        render: (value, row) => <InputNumber
+            disabled={row.tl.absensi_committed}
+            size="large"
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            min={0}
+            max={23}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeDailyCuti('daily_cuti', 'ct', value, row)} />,
+    }]
 },
 {
     title: 'Pilihan',
@@ -133,5 +202,5 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi) =>
             size="small"
             title="Kirim penilaian"
             type="primary"
-            onClick={() => onClickKirimPenilaian(row._id, row.tl, row.psw)}>Kirim</Button>)
+            onClick={() => onClickKirimPenilaian(row._id, row.tl, row.psw, row.daily_cuti)}>Kirim</Button>)
 }]

@@ -5,7 +5,7 @@ module.exports = (query, cb, client) => {
     Organik.findOneAndUpdate({
         '_id': query._id, "tl._id": query.tl._id
     }, {
-        $set: { 'tl.$': {...query.tl, absensi_committed: true}, 'psw.$': {...query.psw, absensi_committed: true} }
+        $set: { 'tl.$': {...query.tl, absensi_committed: true}, 'psw.$': {...query.psw, absensi_committed: true}, 'daily_cuti.$': {...query.daily_cuti} }
     }, (e, r) => {
         if (e) {
             console.log(e);

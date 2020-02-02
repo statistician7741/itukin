@@ -124,10 +124,10 @@ export default class Penilaian extends React.Component {
         this.setState({ semua_organik: [...newData] });
     }
 
-    onClickKirimAbsPenilaian = (_id, tl, psw) => {
+    onClickKirimAbsPenilaian = (_id, tl, psw, daily_cuti) => {
         this.props.socket.emit(
             'api.socket.penilaian/s/onClickKirimAbsPenilaian',
-            { _id, tl, psw },
+            { _id, tl, psw, daily_cuti },
             (response) => {
                 onClickKirimAbsPenilaian(
                     response,
@@ -322,7 +322,7 @@ export default class Penilaian extends React.Component {
                         >
                             {seksi === "Tata Usaha" ? <Panel
                                 header={
-                                    genTitle(`Absensi ${moment().year(active_user.tahun_anggaran).month(month).format("MMMM YYYY")}`,
+                                    genTitle(`Absensi dan Cuti ${moment().year(active_user.tahun_anggaran).month(month).format("MMMM YYYY")}`,
                                         Math.round((semua_organik.reduce((a, b) => (a + (b.tl.absensi_committed ? 1 : 0)), 0)) / semua_organik.length * 100),
                                         "absensi",
                                         activeKey)}
@@ -331,11 +331,12 @@ export default class Penilaian extends React.Component {
                                     data={semua_organik}
                                     onClickEditPenilaian={this.onClickEditAbsPenilaian}
                                     onClickKirimPenilaian={this.onClickKirimAbsPenilaian}
-                                    onChangeAbsensi={this.onChangeAbsensi} />
+                                    onChangeAbsensi={this.onChangeAbsensi}
+                                    onChangeDailyCuti={this.onChangeDailyCuti} />
                             </Panel> : null}
                             {seksi === "Tata Usaha" ? <Panel
                                 header={
-                                    genTitle(`Daily Activity dan Cuti ${moment().year(active_user.tahun_anggaran).month(month).format("MMMM YYYY")}`,
+                                    genTitle(`Daily Activity ${moment().year(active_user.tahun_anggaran).month(month).format("MMMM YYYY")}`,
                                         Math.round((semua_organik.reduce((a, b) => (a + (b.daily_cuti.d_c_committed ? 1 : 0)), 0)) / semua_organik.length * 100),
                                         "daily_cuti",
                                         activeKey)}
