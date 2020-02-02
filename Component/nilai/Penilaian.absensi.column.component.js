@@ -4,8 +4,6 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
     title: 'Nama',
     dataIndex: 'nama',
     key: 'name',
-    fixed: 'left',
-    width: 200,
     render: text => <strong>{text}</strong>,
 }, {
     title: 'TL',
@@ -14,6 +12,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'TL1',
         dataIndex: 'tl.tl1',
         key: 'tl.tl1',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
@@ -27,6 +26,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'TL2',
         dataIndex: 'tl.tl2',
         key: 'tl.tl2',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
@@ -40,6 +40,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'TL3',
         dataIndex: 'tl.tl3',
         key: 'tl.tl3',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
@@ -53,6 +54,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'TL4',
         dataIndex: 'tl.tl4',
         key: 'tl.tl4',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
@@ -70,6 +72,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'PSW1',
         dataIndex: 'psw.psw1',
         key: 'psw.psw1',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.psw.absensi_committed}
             size="large"
@@ -83,6 +86,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'PSW2',
         dataIndex: 'psw.psw2',
         key: 'psw.psw2',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.psw.absensi_committed}
             size="large"
@@ -96,6 +100,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'PSW3',
         dataIndex: 'psw.psw3',
         key: 'psw.psw3',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.psw.absensi_committed}
             size="large"
@@ -109,6 +114,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'PSW4',
         dataIndex: 'psw.psw4',
         key: 'psw.psw4',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.psw.absensi_committed}
             size="large"
@@ -126,6 +132,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'CB',
         dataIndex: 'daily_cuti.cb',
         key: 'cb',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
@@ -139,6 +146,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'CP',
         dataIndex: 'daily_cuti.cp',
         key: 'cp',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
@@ -152,6 +160,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'CM',
         dataIndex: 'daily_cuti.cm',
         key: 'cm',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
@@ -165,6 +174,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'CS',
         dataIndex: 'daily_cuti.cs',
         key: 'cs',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
@@ -178,6 +188,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'CT',
         dataIndex: 'daily_cuti.ct',
         key: 'ct',
+        width: 105,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
