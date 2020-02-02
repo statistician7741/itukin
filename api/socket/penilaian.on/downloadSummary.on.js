@@ -78,7 +78,7 @@ module.exports = (query, cb, client) => {
             },
             () => {
                 setTimeout(() => {
-                    cb({ type: 200, data: `/static/${file_path}` })
+                    cb({ type: 200, data: `/download/${file_path}` })
                 }, 2000)
             }
         )

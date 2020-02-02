@@ -42,6 +42,7 @@ let runServer = () => {
       server.use(bodyParser.urlencoded({ extended: true }));
       server.use(bodyParser.json())
       server.use('/.well-known', express.static(__dirname + '/public/static/.well-known'));
+      server.use('/download', express.static(__dirname + '/public/static'));
 
       //socket.io
       const serve = http.createServer(server);
