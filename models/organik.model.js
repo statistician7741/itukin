@@ -5,6 +5,10 @@ var Schema = mongoose.Schema;
 
 var OrganikSchema = new Schema({
     "_id": String,
+    "id_fingerprint": {
+        type: String,
+        default: '-'
+    },
     "username": String,
     "password": {
         type: String,
@@ -34,6 +38,13 @@ var OrganikSchema = new Schema({
         type: Boolean,
         default: false
     },
+    "presensi":[{
+        date: Date,
+        handkey_time: {
+            type: [String],
+            default: []
+        }
+    }],
     "tl": [{
         _id: String,
         absensi_committed: {
