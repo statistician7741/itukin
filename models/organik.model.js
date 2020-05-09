@@ -39,6 +39,7 @@ var OrganikSchema = new Schema({
         default: false
     },
     "presensi":[{
+        _id: String,
         date: Date,
         handkey_time: {
             type: [String],
