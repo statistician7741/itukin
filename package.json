@@ -28,7 +28,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "mongoose": "5.3.12",
-    "next": "^9.1.6",
+    "next": "^9.3.2",
     "next-images": "^1.2.0",
     "next-redux-wrapper": "^4.0.1",
     "react": "^16.12.0",
