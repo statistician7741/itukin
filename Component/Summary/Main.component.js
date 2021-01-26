@@ -67,7 +67,7 @@ export default class Main extends React.Component {
                 { month, semua_kegiatan, semua_organik, nilai_seksi },
                 (response) => {
                     window.open(response.data, "_top");
-                    this.setState({downloadLoadingButton: false})
+                    this.setState({ downloadLoadingButton: false })
                 }
             )
         })
@@ -123,7 +123,7 @@ export default class Main extends React.Component {
                         ].map((m, i) => (<Option value={i} key={i}><strong>{m}</strong></Option>))}
                     </Select>
                 </Col>
-                <Col xs={4} push={15}>
+                <Col xs={4} push={13}>
                     <a href='/'>
                         <Button type="primary">Lihat Penilaian</Button>
                     </a>
@@ -149,6 +149,7 @@ export default class Main extends React.Component {
             <Row gutter={24} type="flex">
                 <Col xs={24}>
                     <TableSummary
+                        scroll={{ x: 1650 }}
                         columns={columns(
                             semua_kegiatan,
                             semua_organik,
@@ -166,7 +167,7 @@ export default class Main extends React.Component {
             </Row>
             <Row gutter={24} type="flex" style={{ marginTop: 5 }}>
                 <Col xs={4}>
-                    <Button type="primary" onClick={()=>this.onClickDownload(month, semua_kegiatan, semua_organik, nilai_seksi)} loading={downloadLoadingButton}>Download Summary</Button>
+                    <Button type="primary" onClick={() => this.onClickDownload(month, semua_kegiatan, semua_organik, nilai_seksi)} loading={downloadLoadingButton}>Download Summary</Button>
                 </Col>
             </Row>
         </Fragment>

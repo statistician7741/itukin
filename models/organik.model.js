@@ -72,7 +72,34 @@ var OrganikSchema = new Schema({
             type: Number,
             default: 0
         },
+        ckpt: {
+            type: Number,
+            default: 0
+        },
+        ckpr: {
+            type: Number,
+            default: 0
+        },
     }],
+    // "ckp": [{
+    //     _id: String,
+    //     absensi_committed: {
+    //         type: Boolean,
+    //         default: false
+    //     },
+    //     absensi_approved: {
+    //         type: Boolean,
+    //         default: false
+    //     },
+    //     ckpt: {
+    //         type: Number,
+    //         default: 0
+    //     },
+    //     ckpr: {
+    //         type: Number,
+    //         default: 0
+    //     },
+    // }],
     "psw": [{
         _id: String,
         absensi_committed: {
@@ -133,7 +160,11 @@ var OrganikSchema = new Schema({
         ct: {
             type: Number,
             default: 0
-        }
+        },
+        tanpa_ket: {
+            type: Number,
+            default: 0
+        },
     }],
     "tambahan_keg": [{
         _id: String, //2019_0_namaKeg

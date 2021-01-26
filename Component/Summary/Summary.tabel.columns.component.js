@@ -139,6 +139,8 @@ export default (semua_kegiatan, semua_organik, nilai_seksi, tahun_anggaran, mont
     dataIndex: 'kinerja_committed',
     key: 'kinerja_committed',
     align: 'center',
+    fixed: 'right',
+    width: 100,
     render: (kinerja_committed, row) => isKepalaKantor?(isSdhSetujui(row, semua_kegiatan).status ? <Button
         size="small"
         title="Klik untuk membatalkan persetujuan agar bisa diubah"

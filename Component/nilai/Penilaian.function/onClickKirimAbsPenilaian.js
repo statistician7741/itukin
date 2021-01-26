@@ -6,7 +6,8 @@ export default (response, state, _id, props, cb) => {
                     return {
                         ...organik,
                         tl: _id !== organik._id ? organik.tl : { ...organik.tl, absensi_committed: true },
-                        psw: _id !== organik._id ? organik.psw : { ...organik.psw, absensi_committed: true }
+                        psw: _id !== organik._id ? organik.psw : { ...organik.psw, absensi_committed: true },
+                        // ckp: _id !== organik._id ? organik.ckp : { ...organik.ckp, absensi_committed: true }
                     }
                 })
             ]

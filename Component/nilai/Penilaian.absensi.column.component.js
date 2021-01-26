@@ -12,11 +12,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'TL1',
         dataIndex: 'tl.tl1',
         key: 'tl.tl1',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={31}
             value={value}
@@ -26,11 +26,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'TL2',
         dataIndex: 'tl.tl2',
         key: 'tl.tl2',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={31}
             value={value}
@@ -40,11 +40,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'TL3',
         dataIndex: 'tl.tl3',
         key: 'tl.tl3',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={31}
             value={value}
@@ -54,11 +54,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'TL4',
         dataIndex: 'tl.tl4',
         key: 'tl.tl4',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={31}
             value={value}
@@ -72,11 +72,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'PSW1',
         dataIndex: 'psw.psw1',
         key: 'psw.psw1',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.psw.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={31}
             value={value}
@@ -86,11 +86,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'PSW2',
         dataIndex: 'psw.psw2',
         key: 'psw.psw2',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.psw.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={31}
             value={value}
@@ -100,11 +100,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'PSW3',
         dataIndex: 'psw.psw3',
         key: 'psw.psw3',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.psw.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={31}
             value={value}
@@ -114,11 +114,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'PSW4',
         dataIndex: 'psw.psw4',
         key: 'psw.psw4',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.psw.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={31}
             value={value}
@@ -126,17 +126,63 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
             onChange={(value)=>onChangeAbsensi('psw', 'psw4', value, row)} />,
     }]
 }, {
+    title: 'Kumpul CKP',
+    dataIndex: 'ckp',
+    children: [{
+        title: 'CKP-T',
+        dataIndex: 'tl.ckpt',
+        key: 'tl.ckpt',
+        width: 70,
+        render: (value, row) => <InputNumber
+            disabled={row.psw.absensi_committed}
+            size="large"
+            style={{backgroundColor: value < 1?"blue":undefined, color: value < 1?"white":undefined, width: 50}}
+            min={0}
+            max={1}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeAbsensi('tl', 'ckpt', value, row)} />,
+    }, {
+        title: 'CKP-R',
+        dataIndex: 'tl.ckpr',
+        key: 'tl.ckpr',
+        width: 70,
+        render: (value, row) => <InputNumber
+            disabled={row.psw.absensi_committed}
+            size="large"
+            style={{backgroundColor: value < 1?"blue":undefined, color: value < 1?"white":undefined, width: 50}}
+            min={0}
+            max={1}
+            value={value}
+            defaultValue={0}
+            onChange={(value)=>onChangeAbsensi('tl', 'ckpr', value, row)} />,
+    }]
+}, {
+    title: 'Tanpa Ket.',
+    dataIndex: 'daily_cuti.tanpa_ket',
+    key: 'tanpa_ket',
+    width: 70,
+    render: (value, row) => <InputNumber
+        disabled={row.tl.absensi_committed}
+        size="large"
+        style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
+        min={0}
+        max={23}
+        value={value}
+        defaultValue={0}
+        onChange={(value)=>onChangeDailyCuti('daily_cuti', 'tanpa_ket', value, row)} />,
+}, {
     title: 'Cuti',
     dataIndex: 'cuti',
     children: [{
         title: 'CB',
         dataIndex: 'daily_cuti.cb',
         key: 'cb',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={23}
             value={value}
@@ -146,11 +192,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'CP',
         dataIndex: 'daily_cuti.cp',
         key: 'cp',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={23}
             value={value}
@@ -160,11 +206,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'CM',
         dataIndex: 'daily_cuti.cm',
         key: 'cm',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={23}
             value={value}
@@ -174,11 +220,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'CS',
         dataIndex: 'daily_cuti.cs',
         key: 'cs',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={23}
             value={value}
@@ -188,11 +234,11 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'CT',
         dataIndex: 'daily_cuti.ct',
         key: 'ct',
-        width: 105,
+        width: 70,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"
-            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined}}
+            style={{backgroundColor: value > 0?"blue":undefined, color: value > 0?"white":undefined, width: 50}}
             min={0}
             max={23}
             value={value}
@@ -216,5 +262,5 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
             size="small"
             title="Kirim penilaian"
             type="primary"
-            onClick={() => onClickKirimPenilaian(row._id, row.tl, row.psw, row.daily_cuti)}>Kirim</Button>)
+            onClick={() => onClickKirimPenilaian(row._id, row.tl, row.psw, row.daily_cuti, row.ckp)}>Kirim</Button>)
 }]

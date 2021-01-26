@@ -124,10 +124,10 @@ export default class Penilaian extends React.Component {
         this.setState({ semua_organik: [...newData] });
     }
 
-    onClickKirimAbsPenilaian = (_id, tl, psw, daily_cuti) => {
+    onClickKirimAbsPenilaian = (_id, tl, psw, daily_cuti, ckp) => {
         this.props.socket.emit(
             'api.socket.penilaian/s/onClickKirimAbsPenilaian',
-            { _id, tl, psw, daily_cuti },
+            { _id, tl, psw, daily_cuti, ckp },
             (response) => {
                 onClickKirimAbsPenilaian(
                     response,
@@ -299,10 +299,10 @@ export default class Penilaian extends React.Component {
                             ].map((s, i) => (<Option value={s} key={i}><strong>{s}</strong></Option>))}
                         </Select>
                     </Col>
-                    <Col xs={4} push={5}>
+                    <Col xs={4} push={2}>
                         <Button type="primary" icon="plus" onClick={this.showTambahanDrawer}>Poin Penilaian Tambahan</Button>
                     </Col>
-                    <Col xs={4} push={5}>
+                    <Col xs={4} push={2}>
                         <a href='/summary'>
                             <Button type="default">Lihat Hasil Penilaian</Button>
                         </a>

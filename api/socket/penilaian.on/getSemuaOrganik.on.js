@@ -22,7 +22,9 @@ module.exports = (query, cb, client) => {
                 tl1: 0,
                 tl2: 0,
                 tl3: 0,
-                tl4: 0
+                tl4: 0,
+                ckpt: 0,
+                ckpr: 0,
             },
             psw: {
                 _id,
@@ -32,6 +34,12 @@ module.exports = (query, cb, client) => {
                 psw3: 0,
                 psw4: 0
             },
+            // ckp: {
+            //     _id,
+            //     absensi_committed: false,
+            //     ckpt: 0,
+            //     ckpr: 0,
+            // },
             daily_cuti: {
                 _id,
                 d_c_committed: false,
@@ -41,17 +49,20 @@ module.exports = (query, cb, client) => {
                 cm: 0,
                 cs: 0,
                 ct: 0,
+                tanpa_ket: 0
             }
         }
     }, (e, r) => {
         Organik.aggregate([
             { $unwind: "$tl" },
             { $unwind: "$psw" },
+            // { $unwind: "$ckp" },
             { $unwind: "$daily_cuti" },
             {
                 $match: {
                     "tl._id": _id,
                     "psw._id": _id,
+                    // "ckp._id": _id,
                     "daily_cuti._id": _id,
                     'isProv': false,
                     "nmjab": { $not: /Kepala BPS|Kepala Badan Pusat/ },
