@@ -1,6 +1,7 @@
 import { Button, Tag } from 'antd'
 import hitungKinerja from "./Summary.function/hitungKinerja";
 import hitungTLPSW from "./Summary.function/hitungTLPSW";
+import hitungCKPTerkumpul from "./Summary.function/hitungCKPTerkumpul";
 import hitungTotalTukin from "./Summary.function/hitungTotalTukin";
 import isSdhSetujui from "./Summary.function/isSdhSetujui";
 
@@ -83,13 +84,30 @@ export default (semua_kegiatan, semua_organik, nilai_seksi, tahun_anggaran, mont
         dataIndex: 'daily_cuti.daily',
         key: 'potongan_tk',
         align: 'right',
-        render: (value, row) => <strong>{(value * .05).toFixed(2)}</strong>
+        render: (value, row) => <strong>{(value * -.05).toFixed(2)}</strong>
     }, {
         title: 'TK-D',
         dataIndex: 'daily_cuti.daily',
         key: 'tk_d',
         align: 'right',
         render: (value, row) => hitungKinerja(row, semua_kegiatan) === '-' ? '-' : (hitungKinerja(row, semua_kegiatan) - value * .05).toFixed(2)
+    }]
+},
+{
+    title: 'CKP-T/R',
+    dataIndex: 'ckp',
+    children: [{
+        title: 'Terkumpul',
+        dataIndex: 'tl_psw',
+        key: 'tl_psw',
+        align: 'right',
+        render: (tl_psw, { tl }) => hitungCKPTerkumpul(tl)
+    }, {
+        title: 'POTONGAN TK',
+        dataIndex: 'tk_c',
+        key: 'tk_c',
+        align: 'right',
+        render: (value, { tl }) => <strong>{hitungCKPTerkumpul(tl) === '-' ? '-' : ((hitungCKPTerkumpul(tl)-2).toFixed(2))}</strong>
     }]
 },
 {
@@ -141,18 +159,18 @@ export default (semua_kegiatan, semua_organik, nilai_seksi, tahun_anggaran, mont
     align: 'center',
     fixed: 'right',
     width: 100,
-    render: (kinerja_committed, row) => isKepalaKantor?(isSdhSetujui(row, semua_kegiatan).status ? <Button
+    render: (kinerja_committed, row) => isKepalaKantor ? (isSdhSetujui(row, semua_kegiatan).status ? <Button
         size="small"
         title="Klik untuk membatalkan persetujuan agar bisa diubah"
         type="primary"
         onClick={() => onClickApproved(row._id, isSdhSetujui(row, semua_kegiatan).all_spd_id, false)}>Disetujui</Button>
-        : (hitungTotalTukin(row, semua_kegiatan, nilai_seksi, true, tahun_anggaran, month)!=='-'?<Button
+        : (hitungTotalTukin(row, semua_kegiatan, nilai_seksi, true, tahun_anggaran, month) !== '-' ? <Button
             size="small"
             title="Klik untuk finalkan Besaran Tunjangan Kinerja"
             type="default"
             style={{ background: "red", borderColor: "red", color: "white" }}
-            onClick={() => onClickApproved(row._id, isSdhSetujui(row, semua_kegiatan).all_spd_id, true)}>Setujui</Button>:'-')):(
-                !isSdhSetujui(row, semua_kegiatan).status?<Tag color="#f50">Belum disetujui</Tag>:
+            onClick={() => onClickApproved(row._id, isSdhSetujui(row, semua_kegiatan).all_spd_id, true)}>Setujui</Button> : '-')) : (
+            !isSdhSetujui(row, semua_kegiatan).status ? <Tag color="#f50">Belum disetujui</Tag> :
                 <Tag color="#87d068">Disetujui</Tag>
-            )
+        )
 }]

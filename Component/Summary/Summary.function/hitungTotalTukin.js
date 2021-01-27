@@ -1,5 +1,6 @@
 const hitungKinerja = require("./hitungKinerja");
 const hitungTLPSW = require("./hitungTLPSW");
+const hitungCKPTerkumpul = require("./hitungCKPTerkumpul");
 
 module.exports = (organik, semua_kegiatan, nilai_seksi, isRounded, tahun_anggaran, month) => {
     let persenKinerja = hitungKinerja(organik, semua_kegiatan, undefined, tahun_anggaran, month); //misal 80%
@@ -21,7 +22,12 @@ module.exports = (organik, semua_kegiatan, nilai_seksi, isRounded, tahun_anggara
     if(jumlahTLPSW === '-') return '-'
         else persenTLPSW = hitungTLPSW(organik.tl, organik.psw) < 2 ? 100 : 99 //misal 99%
     const persenPengurangDaily = (organik.daily_cuti.daily * .05)
-    const total = (persenTLPSW < +persenKinerja ? persenTLPSW : +persenKinerja) - persenPengurangDaily;
+    let total = (persenTLPSW < +persenKinerja ? persenTLPSW : +persenKinerja) - persenPengurangDaily;
+
+    const jumlahCKPTerkumpul = hitungCKPTerkumpul(organik.tl)
+    if(jumlahCKPTerkumpul === '-') return '-'
+        else total = total + jumlahCKPTerkumpul - 2
+        
     if (total === 100) return total;
     return isRounded ?
         (Math.round(total) - total === 0.5? ( Math.round(total) % 2 == 0? Math.round(total): Math.floor(total) ) :Math.round(total))

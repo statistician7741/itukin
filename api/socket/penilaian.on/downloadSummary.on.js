@@ -1,5 +1,6 @@
 const hitungKinerja = require('../../../Component/Summary/Summary.function/hitungKinerja')
 const hitungTLPSW = require('../../../Component/Summary/Summary.function/hitungTLPSW')
+const hitungCKPTerkumpul = require('../../../Component/Summary/Summary.function/hitungCKPTerkumpul')
 const hitungTotalTukin = require('../../../Component/Summary/Summary.function/hitungTotalTukin')
 
 const buatXlsx = require("../../../functions/xlsxGenerator.function").buatXlsx
@@ -24,8 +25,11 @@ module.exports = (query, cb, client) => {
             absensi_tka: hitungTLPSW(row.tl, row.psw) === '-' ? '-' : (hitungTLPSW(row.tl, row.psw) < 2 ? 100 : 99),
 
             daily_kosong: row.daily_cuti.daily,
-            daily_potongan: (row.daily_cuti.daily * .05).toFixed(2),
+            daily_potongan: (row.daily_cuti.daily * -.05).toFixed(2),
             daily_tkd: hitungKinerja(row, semua_kegiatan) === '-' ? '-' : (hitungKinerja(row, semua_kegiatan) - row.daily_cuti.daily * .05).toFixed(2),
+
+            ckp_terkumpul: hitungCKPTerkumpul(row.tl),
+            ckp_potongan: hitungCKPTerkumpul(row.tl) === '-' ? '-' : ((hitungCKPTerkumpul(row.tl)-2).toFixed(2)),
 
             cuti_cb: row.daily_cuti.cb,
             cuti_cp: row.daily_cuti.cp,
@@ -44,7 +48,7 @@ module.exports = (query, cb, client) => {
                 let sheet = workbook.sheet(0);
                 let rowIndex = 3;
                 data.forEach((row, i) => {
-                    let r = sheet.range('A' + rowIndex + ':R' + rowIndex);
+                    let r = sheet.range('A' + rowIndex + ':T' + rowIndex);
                     let arr = [
                         row.nama,
 
@@ -61,6 +65,9 @@ module.exports = (query, cb, client) => {
                         row.daily_kosong,
                         row.daily_potongan,
                         row.daily_tkd,
+                        
+                        row.ckp_terkumpul,
+                        row.ckp_potongan,
 
                         row.cuti_cb,
                         row.cuti_cp,

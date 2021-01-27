@@ -1,0 +1,1 @@
+module.exports = (tl)=>tl?( tl.absensi_committed?(tl.ckpt+tl.ckpr):'-' ):'-';
