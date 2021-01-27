@@ -4,6 +4,8 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
     title: 'Nama',
     dataIndex: 'nama',
     key: 'name',
+    fixed: 'left',
+    width: 230,
     render: text => <strong>{text}</strong>,
 }, {
     title: 'TL',
@@ -234,7 +236,7 @@ export default (onClickEditPenilaian, onClickKirimPenilaian, onChangeAbsensi, on
         title: 'CT',
         dataIndex: 'daily_cuti.ct',
         key: 'ct',
-        width: 70,
+        // width: 70,
         render: (value, row) => <InputNumber
             disabled={row.tl.absensi_committed}
             size="large"

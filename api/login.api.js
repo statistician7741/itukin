@@ -9,7 +9,8 @@ const all_client_pc_id = require('./../all_client_pc_id')
 const Organik = require("../models/organik.model")
 
 function loginSuccess(req, res, org) {
-  if (!/Kepala|Kasi|Koordinator Seksi|Koorsi/i.test(org.nmjab)) {
+  console.log(org.nmjab)
+  if (!/Kepala|Kasi|Koordinator|Koorsi/i.test(org.nmjab)) {
     res.end('422')
     return;
   } else if (/ipds|pengolahan/i.test(org.nmjab)) {
