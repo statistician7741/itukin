@@ -321,7 +321,7 @@ export default class Penilaian extends React.Component {
                         >
                             {seksi === "Tata Usaha" ? <Panel
                                 header={
-                                    genTitle(`Absensi dan Cuti ${moment().year(active_user.tahun_anggaran).month(month).format("MMMM YYYY")}`,
+                                    genTitle(`Absensi, CKP T/R, dan Cuti ${moment().year(active_user.tahun_anggaran).month(month).format("MMMM YYYY")}`,
                                         Math.round((semua_organik.reduce((a, b) => (a + (b.tl.absensi_committed ? 1 : 0)), 0)) / semua_organik.length * 100),
                                         "absensi",
                                         activeKey)}
