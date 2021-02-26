@@ -22,6 +22,7 @@ var OrganikSchema = new Schema({
     },
     "nmjab": String,
     "nmgol": String,
+    "seksi": String,
     "kendaraan": {
         type: String,
         default: 'Motor Dinas'
